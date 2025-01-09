@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ project.name }} Documentation</title>
 
-    <link rel="shortcut icon" href="/static/fav.png" type="image/x-icon">
+    <link rel="shortcut icon" href="/static/images/fav.png" type="image/x-icon">
 
     <!-- Materialize CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
@@ -18,7 +18,7 @@
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="/static/css/style.css">
 </head>
 
 <body>
@@ -32,7 +32,7 @@
         
         <li>
             <div class="user-view">
-                <a href="/doc"><img src="/static/logo.png" alt="Logo" class="circle"></a>
+                <a href="/doc"><img src="/static/images/logo.png" alt="Logo" class="circle"></a>
                 <li class="information">{{ project.name }} Documentation</li>
                 <li class="information">Version: {{ project.version }}</li>
                 <li class="information">Authors: </li>
@@ -94,43 +94,7 @@
 
     <script>hljs.highlightAll();</script>
 
-    <!-- Inicializando o sidebar -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            M.Sidenav.init(document.querySelectorAll('.sidenav'));
-        });
+    <script src="/static/js/script.js"></script>
 
-        document.getElementById('toggle-sidebar').addEventListener('click', function () {
-            const sidenav = document.getElementById('slide-out');
-            const toggleButton = document.getElementById('toggle-sidebar');
-
-            if (sidenav.classList.contains('hidden-sidebar')) {
-                sidenav.classList.remove('hidden-sidebar');
-                toggleButton.style.left = "340px";
-            } else {
-                sidenav.classList.add('hidden-sidebar');
-                toggleButton.style.left = "50px";
-            }
-        });
-
-        document.addEventListener('DOMContentLoaded', function () {
-            if (window.innerWidth <= 900) {
-                document.getElementById('slide-out').style.transform = "translateX(-400px)";
-                toggleButton.style.left = "50px";
-            }
-        });
-
-        function loadDoc(filename) {
-            fetch('/doc/' + filename)
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('doc-content').innerHTML = data;
-                    hljs.highlightAll(); 
-                })
-                .catch(error => {
-                    document.getElementById('doc-content').innerHTML = "<p class='center-align'>Document not found.</p>";
-                });
-        }
-    </script>
 </body>
 </html>
