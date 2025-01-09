@@ -10,7 +10,7 @@ Aqui está a documentação para a rota /disk:
 Endpoint: /disk
 Método: GET
 
-Descrição: Retorna informações úteis sobre o espaço em disco, incluindo o total, usado, livre e a porcentagem de uso.
+Descrição: Retorna informações detalhadas sobre o espaço em disco do sistema, incluindo o total, espaço utilizado, espaço livre e a porcentagem de uso.
 
 Exemplo de Resposta:
 
@@ -25,7 +25,7 @@ Exemplo de Resposta:
 
 Uso Esperado:
 
-Essa rota pode ser usada para monitorar o uso do disco, identificando quando o espaço livre está baixo e evitando problemas de armazenamento.
+Essa rota pode ser utilizada para monitorar o uso do disco, identificando quando o espaço livre está baixo, e ajudando na prevenção de problemas de armazenamento.
 
 """
 
