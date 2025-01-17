@@ -23,14 +23,3 @@ def first_agent(prompt):
                 )
     
     return response.candidates[0].content.parts[0].text
-
-def second_agent(prompt):
-
-    model = configure_model()
-
-    response = model.generate_content(
-                    prompt,
-                    generation_config=genai.GenerationConfig(response_mime_type='application/json')
-                )
-    
-    return response.candidates[0].content.parts[0].text
