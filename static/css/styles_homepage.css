@@ -10,11 +10,11 @@ body {
 }
 
 header {
-    border-bottom: 2px solid #28a745;
+    border-bottom: 2px solid #008080;
 }
 
 .text-success {
-    color: #28a745 !important;
+    color: #20B2AA !important;
     font-size: 1.1rem;
 }
 
@@ -36,6 +36,18 @@ nav a:hover {
 .list-unstyled li:first-child a {
     font-weight: bolder !important;
     color: #20c997 !important;
+}
+
+li:has(.divider)  {
+    padding: 20px;
+}
+
+#mobile-menu li a {
+    color: #dfdde0 !important;
+}
+
+#mobile-menu li:first-child  a{
+    margin-top: 50px;
 }
 
 header span {
@@ -67,7 +79,7 @@ nav {
 }
 
 .card {
-    border: 1px solid #28a745 !important;
+    border: 1px solid #008080 !important;
     border-radius: 10px;
     transition: transform 0.3s ease;
 }
@@ -123,7 +135,7 @@ nav {
 
 .btn, .btn-large, .btn-small {
     background-color: transparent;
-    border: 1px solid #28a745;
+    border: 1px solid #008080;
     border-radius: 20px;
 }
 
@@ -167,7 +179,7 @@ nav {
     }
 
     a .material-icons {
-        color: #28a745;
+        color: #008080;
     }
 
     .card {

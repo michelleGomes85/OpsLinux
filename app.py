@@ -23,9 +23,13 @@ app = Flask(__name__)
 
 PROJECT_INFO = {
     "name": "OpsLinux",
-    "version": "1.0.0",
-    "authors": ["Gabriel Barbosa", "Michelle Gomes"],
+    "version": "0.0.2",
+    "authors": [
+        {"name": "Gabriel Barbosa", "github": "https://github.com/GabrielBarbosaAfo"},
+        {"name": "Michelle Gomes", "github": "https://github.com/michelleGomes85"}
+    ],
     "last_modified": datetime.now().strftime("%d/%m/%Y"),
+    "gitrepo": "https://github.com/michelleGomes85/OpsLinux",
 }
 
 # Rota principal da documentação
@@ -94,4 +98,4 @@ app.register_blueprint(processes_bp, url_prefix='/processes')
 app.register_blueprint(uptime_bp, url_prefix='/uptime')
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run(debug=True, host='0.0.0.0', port=5000)

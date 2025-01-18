@@ -1,7 +1,7 @@
 # Informações sobre o Disco
 -------------------------
 
-**Endpoint:** `/disk`
+**Endpoint:** `/disk`  
 **Method:** `GET`
 
 ## Descrição 

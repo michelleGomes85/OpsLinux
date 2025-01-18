@@ -30,45 +30,53 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    document.getElementById('limparPergunta').addEventListener('click', function() {
-        document.getElementById('pergunta').value = '';
-    });
-
-
-    document.getElementById('enviarPergunta').onclick = async function (event) {
-
-        const question = document.getElementById('pergunta').value;
-        var loadingEffect = document.getElementById('loadingEffect');
+    let clearQuestion = document.getElementById('limparPergunta');
     
-        if (!question) {
-            alert("Por favor, insira uma pergunta.");
-            return;
-        }
-    
-        try {
-            loadingEffect.style.display = 'block';
-            const response = await fetch('/generate-response', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ question: question })
-            });
-    
-            if (!response.ok) {
-                throw new Error('Erro ao fazer a requisição');
+    if (clearQuestion) {
+        clearQuestion.addEventListener('click', function() {
+            document.getElementById('pergunta').value = '';
+        });
+    }
+
+    let sendQuestion = document.getElementById('enviarPergunta');
+
+    if (sendQuestion) {
+        
+        document.getElementById('enviarPergunta').onclick = async function (event) {
+
+            const question = document.getElementById('pergunta').value;
+            var loadingEffect = document.getElementById('loadingEffect');
+        
+            if (!question) {
+                alert("Por favor, insira uma pergunta.");
+                return;
             }
+        
+            try {
+                loadingEffect.style.display = 'block';
+                const response = await fetch('/generate-response', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ question: question })
+                });
+        
+                if (!response.ok) {
+                    throw new Error('Erro ao fazer a requisição');
+                }
+        
+                const data = await response.json();
     
-            const data = await response.json();
-
-            loadingEffect.style.display = 'none';
-
-            alert("Pergunta enviada com sucesso: " + pergunta);
-
-            M.Modal.getInstance(document.getElementById('modalPergunta')).close();
+                loadingEffect.style.display = 'none';
     
-            console.log(data); 
+                alert("Pergunta enviada com sucesso: " + pergunta);
     
-        } catch (error) {
-            console.error('Erro:', error);
-        }
-    };
+                M.Modal.getInstance(document.getElementById('modalPergunta')).close();
+        
+                console.log(data); 
+        
+            } catch (error) {
+                console.error('Erro:', error);
+            }
+        };
+    }
 });
