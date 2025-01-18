@@ -1,15 +1,148 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ops Linux</title>
+
+    <title>OpsLinux</title>
+
+    <link rel="shortcut icon" href="/static/images/logo.png" type="image/x-icon">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Materialize CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+
+    <!-- My CSS -->
+    <link rel="stylesheet" href="/static/css/styles_homepage.css">
+
+    <!-- Ícones do Materialize -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
+
 <body>
-    <div class="container">
-        <textarea id="prompt" type="text"></textarea>
-        <button id="button-submit">Pesquisar</button>
-    </div>
+    <!-- Header -->
+    <header class="bg-dark">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center py-3">
+                
+                <div class="d-flex align-items-center">
+                    <div class="logo">
+                        <img src="/static/images/logo.png" alt="Logo" class="img-fluid" style="max-height: 50px;">
+                    </div>
+                    <span class="text-success ms-3 fs-4 fw-bold">OpsLinux</span>
+                </div>
+                
+                <a href="#" data-target="mobile-menu" class="sidenav-trigger d-lg-none">
+                    <i class="material-icons">menu</i>
+                </a>
+
+                <nav class="d-none d-lg-flex justify-content-center">
+                    <ul class="list-unstyled d-flex mb-0">
+                        <li class="mx-3"><a href="#" class="text-decoration-none text-success">Question</a></li>
+                        <li class="mx-3"><a href="/doc" class="text-decoration-none text-success">Docs</a></li>
+                        <li class="mx-3"><a href="#" class="text-decoration-none text-success">Info</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <ul class="sidenav" id="mobile-menu">
+        <li><a href="#" class="text-success">Question</a></li>
+        <li><a href="#" class="text-success">Docs</a></li>
+        <li><a href="#" class="text-success">Info</a></li>
+    </ul>
+
+    <main class="bg-dark text-light py-5">
+        <div class="container">
+
+            <div class="row mt-5">
+
+                <!-- Card 1: IP -->
+                <div class="col-md-6 mb-4">
+                    <div class="card bg-dark text-light border-success">
+                        <div class="card-body text-center">
+                            <i class="material-icons text-success">computer</i>
+                            <p class="mt-2 mb-1 small">IP</p>
+                            <h3 class="text-success">192.168.1.1</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2: Tempo de Execução -->
+                <div class="col-md-6 mb-4">
+                    <div class="card bg-dark text-light border-success">
+                        <div class="card-body text-center">
+                            <i class="material-icons text-success">access_time</i>
+                            <p class="mt-2 mb-1 small">Tempo de Execução</p>
+                            <h3 class="text-success">12h 34m</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botão de Pergunta -->
+            <div class="text-center mt-4">
+                <a class="waves-effect waves-light btn-large modal-trigger" href="#modalPergunta">
+                    <i class="material-icons right">chat</i>Faça uma pergunta
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal de Pergunta -->
+    <div id="modalPergunta" class="modal">
+        <div class="modal-content bg-dark text-light">
+
+            <!-- Ícones de Perguntas -->
+            <div class="row text-questions mt-4">
+                <div class="col-3">
+                    <a href="#!" class="icon-link tooltipped" data-pergunta="Qual é o uso atual da CPU?" data-tooltip="Perguntar sobre CPU">
+                        <i class="material-icons large">memory</i>
+                    </a>
+                </div>
+                <div class="col-3">
+                    <a href="#!" class="icon-link tooltipped" data-pergunta="Qual é o espaço livre no disco?" data-tooltip="Perguntar sobre Disco">
+                        <i class="material-icons large">storage</i>
+                    </a>
+                </div>
+                <div class="col-3">
+                    <a href="#!" class="icon-link tooltipped" data-pergunta="Qual é o uso atual da memória?" data-tooltip="Perguntar sobre Memória">
+                        <i class="material-icons large">sd_card</i>
+                    </a>
+                </div>
+                <div class="col-3">
+                    <a href="#!" id="limparPergunta" class="icon-link tooltipped" data-tooltip="Limpar caixa de texto">
+                        <i class="material-icons large">delete</i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Caixa de Texto -->
+            <div class="input-field mt-4">
+                <textarea id="pergunta" class="materialize-textarea bg-dark text-light" placeholder="Faça uma pergunta sobre o sistema..." style="height: 150px;"></textarea>
+            </div>
+
+            <!-- Efeito de Carregamento -->
+            <div id="loadingEffect" class="loading-effect" style="display: none;">
+                <div class="loading-bar"></div>
+            </div>
+
+            <div class="modal-footer bg-dark">
+                <a href="#!" class="modal-close waves-effect waves-green btn-flat text-success">Fechar</a>
+                <a href="#!" id="enviarPergunta" class="waves-effect waves-green btn-flat text-success">Enviar</a>
+            </div>
+        </div>
+    </div><!--modal-->
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Materialize JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
     <script src="/static/js/script_homepage.js"></script>
 </body>
