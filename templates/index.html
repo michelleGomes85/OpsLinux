@@ -39,7 +39,33 @@
                     <a href="#" data-target="mobile-menu" class="sidenav-trigger d-lg-none">
                         <i class="material-icons">menu</i>
                     </a>
+    <div class="container-out">
+        <!-- Header -->
+        <header>
+            <div class="container">
+                <div class="d-flex justify-content-between align-items-center py-3">
+                    
+                    <div class="d-flex align-items-center">
+                        <div class="logo">
+                            <img src="/static/images/logo.png" alt="Logo" class="img-fluid" style="max-height: 50px;">
+                        </div>
+                        <span class="text-success ms-3 fs-4 fw-bold">OpsLinux</span>
+                    </div>
+                    
+                    <a href="#" data-target="mobile-menu" class="sidenav-trigger d-lg-none">
+                        <i class="material-icons">menu</i>
+                    </a>
 
+                    <nav class="d-none d-lg-flex justify-content-center">
+                        <ul class="list-unstyled d-flex mb-0">
+                            <li class="mx-3"><a href="#" class="text-decoration-none text-success">System</a></li>
+                            <li class="mx-3"><a href="/doc" class="text-decoration-none text-success">Docs</a></li>
+                            <li class="mx-3"><a href="#" class="text-decoration-none text-success">Info</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </header>
                     <nav class="d-none d-lg-flex justify-content-center">
                         <ul class="list-unstyled d-flex mb-0">
                             <li class="mx-3"><a href="#" class="text-decoration-none text-success">System</a></li>
@@ -56,10 +82,18 @@
             <li><a href="/doc" class="text-success">Docs</a></li>
             <li><a href="#" class="text-success">Info</a></li>
         </ul>
+        <ul class="sidenav" id="mobile-menu">
+            <li><a href="#" class="text-success">System</a></li>
+            <li><a href="/doc" class="text-success">Docs</a></li>
+            <li><a href="#" class="text-success">Info</a></li>
+        </ul>
 
         <main class="text-light py-5">
             <div class="container">
+        <main class="text-light py-5">
+            <div class="container">
 
+                <div class="row mt-5">
                 <div class="row mt-5">
 
                     <!-- Card 1: IP -->
@@ -103,13 +137,32 @@
                                 <i class="material-icons">sd_card</i>
                             </button>
                         </div>
+                    <!-- Botões para alternar entre Memória, Disco e CPU -->
+                    <div class="links">
+                        
+                        <div>
+                            <button data-position="top" class="btn btn-success tooltipped" id="btnMemory"  data-tooltip="Porcentagem Consumo de Memória">
+                                <i class="material-icons">sd_card</i>
+                            </button>
+                        </div>
 
                         <div>
                             <button data-position="top" class="btn btn-success tooltipped" id="btnDisk" data-tooltip="Porcentagem Consumo de Disco">
                                 <i class="material-icons">storage</i>
                             </button>
                         </div>
+                        <div>
+                            <button data-position="top" class="btn btn-success tooltipped" id="btnDisk" data-tooltip="Porcentagem Consumo de Disco">
+                                <i class="material-icons">storage</i>
+                            </button>
+                        </div>
 
+                        <div>
+                            <button data-position="top" class="btn btn-success tooltipped" id="btnCPU" data-tooltip="Porcentagem Consumo de CPU, cada Núcleo">
+                                <i class="material-icons">memory</i>
+                            </button>
+                        </div>
+                    </div>
                         <div>
                             <button data-position="top" class="btn btn-success tooltipped" id="btnCPU" data-tooltip="Porcentagem Consumo de CPU, cada Núcleo">
                                 <i class="material-icons">memory</i>
@@ -123,7 +176,24 @@
                         <button class="btn btn-success" id="btnLineChart">Linhas</button>
                         <button class="btn btn-success" id="btnPieChart">Pizza</button>
                     </div>
+                    <!-- Botões para escolher o tipo de gráfico -->
+                    <div class="text-center mt-3 button-type-graphic">
+                        <button class="btn btn-success" id="btnBarChart">Barras</button>
+                        <button class="btn btn-success" id="btnLineChart">Linhas</button>
+                        <button class="btn btn-success" id="btnPieChart">Pizza</button>
+                    </div>
 
+                    <h4 class="title-graphic">Gráfico Consumo de Memória</h4>
+                    
+                    <!-- Canvas do Gráfico -->
+                    <div class="mt-4 graphic-sep">
+                        <div class="col-md-12">
+                            <canvas id="memoryChart"></canvas>
+                        </div>
+                    </div>
+                </div>     
+            </div>
+        </main>
                     <h4 class="title-graphic">Gráfico Consumo de Memória</h4>
                     
                     <!-- Canvas do Gráfico -->
@@ -169,6 +239,10 @@
                     <textarea id="question" class="materialize-textarea bg-dark text-light" placeholder="Faça uma pergunta sobre o sistema..." style="height: 150px;"></textarea>
                 </div>
 
+                <!-- Efeito de Carregamento -->
+                <div id="loadingEffect" class="loading-effect" style="display: none;">
+                    <div class="loading-bar"></div>
+                </div>
                 <!-- Efeito de Carregamento -->
                 <div id="loadingEffect" class="loading-effect" style="display: none;">
                     <div class="loading-bar"></div>

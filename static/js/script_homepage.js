@@ -312,10 +312,17 @@ function updateChartType(type) {
 const btnBarChart = document.getElementById('btnBarChart');
 const btnLineChart = document.getElementById('btnLineChart');
 const btnPieChart = document.getElementById('btnPieChart');
+const btnLineChart = document.getElementById('btnLineChart');
+const btnPieChart = document.getElementById('btnPieChart');
 
 if (btnBarChart) {
     btnBarChart.addEventListener('click', () => {
         updateChartType('bar');
+
+        btnBarChart.style.backgroundColor = '#215341';
+        btnLineChart.style.backgroundColor = 'transparent';
+        btnPieChart.style.backgroundColor = 'transparent';
+
 
         btnBarChart.style.backgroundColor = '#215341';
         btnLineChart.style.backgroundColor = 'transparent';
@@ -331,6 +338,10 @@ if (btnLineChart) {
         btnBarChart.style.backgroundColor = 'transparent';
         btnLineChart.style.backgroundColor = '#215341';
         btnPieChart.style.backgroundColor = 'transparent';
+
+        btnBarChart.style.backgroundColor = 'transparent';
+        btnLineChart.style.backgroundColor = '#215341';
+        btnPieChart.style.backgroundColor = 'transparent';
     });
 }
 
@@ -338,6 +349,10 @@ if (btnLineChart) {
 if (btnPieChart) {
     btnPieChart.addEventListener('click', () => {
         updateChartType('pie');
+
+        btnBarChart.style.backgroundColor = 'transparent';
+        btnLineChart.style.backgroundColor = 'transparent';
+        btnPieChart.style.backgroundColor = '#215341';
 
         btnBarChart.style.backgroundColor = 'transparent';
         btnLineChart.style.backgroundColor = 'transparent';
@@ -351,6 +366,12 @@ if (btnMemory) {
         btnMemory.style.backgroundColor = '#215341';
         btnDisk.style.backgroundColor = 'transparent';
         btnCPU.style.backgroundColor = 'transparent';
+
+        btnBarChart.style.backgroundColor = '#215341';
+        btnLineChart.style.backgroundColor = 'transparent';
+        btnPieChart.style.backgroundColor = 'transparent';
+
+        memoryData.chartType = 'bar';
 
         btnBarChart.style.backgroundColor = '#215341';
         btnLineChart.style.backgroundColor = 'transparent';
@@ -374,6 +395,12 @@ if (btnDisk) {
         btnPieChart.style.backgroundColor = 'transparent';
 
         diskData.chartType = 'bar';
+
+        btnBarChart.style.backgroundColor = '#215341';
+        btnLineChart.style.backgroundColor = 'transparent';
+        btnPieChart.style.backgroundColor = 'transparent';
+
+        diskData.chartType = 'bar';
         currentData = diskData;
         renderGraphic(currentData); 
     });
@@ -385,6 +412,12 @@ if (btnCPU) {
         btnMemory.style.backgroundColor = 'transparent';
         btnDisk.style.backgroundColor = 'transparent';
         btnCPU.style.backgroundColor = '#215341';
+
+        btnBarChart.style.backgroundColor = '#215341';
+        btnLineChart.style.backgroundColor = 'transparent';
+        btnPieChart.style.backgroundColor = 'transparent';
+
+        cpuData.chartType = 'bar';
 
         btnBarChart.style.backgroundColor = '#215341';
         btnLineChart.style.backgroundColor = 'transparent';
