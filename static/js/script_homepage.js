@@ -312,8 +312,6 @@ function updateChartType(type) {
 const btnBarChart = document.getElementById('btnBarChart');
 const btnLineChart = document.getElementById('btnLineChart');
 const btnPieChart = document.getElementById('btnPieChart');
-const btnLineChart = document.getElementById('btnLineChart');
-const btnPieChart = document.getElementById('btnPieChart');
 
 if (btnBarChart) {
     btnBarChart.addEventListener('click', () => {
@@ -322,22 +320,12 @@ if (btnBarChart) {
         btnBarChart.style.backgroundColor = '#215341';
         btnLineChart.style.backgroundColor = 'transparent';
         btnPieChart.style.backgroundColor = 'transparent';
-
-
-        btnBarChart.style.backgroundColor = '#215341';
-        btnLineChart.style.backgroundColor = 'transparent';
-        btnPieChart.style.backgroundColor = 'transparent';
-
     });
 }
 
 if (btnLineChart) {
     btnLineChart.addEventListener('click', () => {
         updateChartType('line');
-
-        btnBarChart.style.backgroundColor = 'transparent';
-        btnLineChart.style.backgroundColor = '#215341';
-        btnPieChart.style.backgroundColor = 'transparent';
 
         btnBarChart.style.backgroundColor = 'transparent';
         btnLineChart.style.backgroundColor = '#215341';
@@ -353,16 +341,14 @@ if (btnPieChart) {
         btnBarChart.style.backgroundColor = 'transparent';
         btnLineChart.style.backgroundColor = 'transparent';
         btnPieChart.style.backgroundColor = '#215341';
-
-        btnBarChart.style.backgroundColor = 'transparent';
-        btnLineChart.style.backgroundColor = 'transparent';
-        btnPieChart.style.backgroundColor = '#215341';
     });
 }
 
 if (btnMemory) {
     document.getElementById('btnMemory').addEventListener('click', () => {
+
         title_graphic.textContent = 'Gráfico Consumo de Memória';
+
         btnMemory.style.backgroundColor = '#215341';
         btnDisk.style.backgroundColor = 'transparent';
         btnCPU.style.backgroundColor = 'transparent';
@@ -373,11 +359,6 @@ if (btnMemory) {
 
         memoryData.chartType = 'bar';
 
-        btnBarChart.style.backgroundColor = '#215341';
-        btnLineChart.style.backgroundColor = 'transparent';
-        btnPieChart.style.backgroundColor = 'transparent';
-
-        memoryData.chartType = 'bar';
         currentData = memoryData; 
         renderGraphic(currentData);
     });
@@ -385,7 +366,9 @@ if (btnMemory) {
 
 if (btnDisk) {
     document.getElementById('btnDisk').addEventListener('click', () => {
+        
         title_graphic.textContent = 'Gráfico Consumo de Disco';
+
         btnMemory.style.backgroundColor = 'transparent';
         btnDisk.style.backgroundColor = '#215341';
         btnCPU.style.backgroundColor = 'transparent';
@@ -396,11 +379,6 @@ if (btnDisk) {
 
         diskData.chartType = 'bar';
 
-        btnBarChart.style.backgroundColor = '#215341';
-        btnLineChart.style.backgroundColor = 'transparent';
-        btnPieChart.style.backgroundColor = 'transparent';
-
-        diskData.chartType = 'bar';
         currentData = diskData;
         renderGraphic(currentData); 
     });
@@ -408,7 +386,9 @@ if (btnDisk) {
 
 if (btnCPU) {
     document.getElementById('btnCPU').addEventListener('click', () => {
+
         title_graphic.textContent = 'Gráfico Consumo de CPU em cada núcleo';
+
         btnMemory.style.backgroundColor = 'transparent';
         btnDisk.style.backgroundColor = 'transparent';
         btnCPU.style.backgroundColor = '#215341';
@@ -419,11 +399,6 @@ if (btnCPU) {
 
         cpuData.chartType = 'bar';
 
-        btnBarChart.style.backgroundColor = '#215341';
-        btnLineChart.style.backgroundColor = 'transparent';
-        btnPieChart.style.backgroundColor = 'transparent';
-
-        cpuData.chartType = 'bar';
         currentData = cpuData; 
         renderGraphic(currentData); 
     });
