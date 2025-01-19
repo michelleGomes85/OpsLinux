@@ -5,7 +5,8 @@
 }
 
 body {
-    background-color: #000;
+    background: linear-gradient(to right, #000000, #000000, #000c00);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;  
     color: #ffffff;
 }
 
@@ -51,7 +52,6 @@ li:has(.divider)  {
 }
 
 header span {
-    font-family: 'Arial', sans-serif;
     text-shadow: 0 0 5px rgba(40, 167, 69, 0.5);
 }
 
@@ -224,7 +224,7 @@ h4.title-graphic {
     line-height: 3rem;
 }
 
-#btnMemory {
+#btnMemory, #btnBarChart {
     background-color: #215341;
 }
 

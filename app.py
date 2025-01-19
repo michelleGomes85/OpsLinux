@@ -1,6 +1,5 @@
 import os
 import markdown
-import json
 
 from flask import Flask
 from flask import Flask, send_from_directory
@@ -99,3 +98,4 @@ app.register_blueprint(uptime_bp, url_prefix='/uptime')
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
+

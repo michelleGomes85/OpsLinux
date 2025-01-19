@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;  
+}
+
 .endpointsDoc li a.active {
     color: #20B2AA !important;
     font-weight: bold !important;
