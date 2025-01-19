@@ -1,6 +1,5 @@
 import os
 import markdown
-import json
 
 from flask import Flask
 from flask import Flask, send_from_directory
@@ -15,6 +14,7 @@ from routes.memory import memory_bp
 from routes.network import network_bp
 from routes.processes import processes_bp
 from routes.uptime import uptime_bp
+from routes.system_info import system_info_bp
 
 from utils.utils import get_documentation
 from services.ai_service import first_agent
@@ -31,6 +31,15 @@ PROJECT_INFO = {
     "last_modified": datetime.now().strftime("%d/%m/%Y"),
     "gitrepo": "https://github.com/michelleGomes85/OpsLinux",
 }
+
+# Registro das rotas
+app.register_blueprint(cpu_bp, url_prefix='/cpu')
+app.register_blueprint(disk_bp, url_prefix='/disk')
+app.register_blueprint(memory_bp, url_prefix='/memory')
+app.register_blueprint(network_bp, url_prefix='/network')
+app.register_blueprint(processes_bp, url_prefix='/processes')
+app.register_blueprint(uptime_bp, url_prefix='/uptime')
+app.register_blueprint(system_info_bp, url_prefix='/system-info')
 
 # Rota principal da documentação
 @app.route('/doc')
@@ -89,13 +98,6 @@ def generate_response():
         print(f"Erro: {e}")
         return jsonify({'error': 'Erro interno do servidor'}), 500
 
-# Registro das rotas
-app.register_blueprint(cpu_bp, url_prefix='/cpu')
-app.register_blueprint(disk_bp, url_prefix='/disk')
-app.register_blueprint(memory_bp, url_prefix='/memory')
-app.register_blueprint(network_bp, url_prefix='/network')
-app.register_blueprint(processes_bp, url_prefix='/processes')
-app.register_blueprint(uptime_bp, url_prefix='/uptime')
-
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
+

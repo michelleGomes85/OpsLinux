@@ -1,0 +1,5 @@
+google-generativeai
+markdown
+flask
+psutil
+python-dotenv

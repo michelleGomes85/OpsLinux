@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
         startingTop: '10%',
         endingTop: '10%',
         onOpenEnd: function() {
-            var textarea = document.getElementById('pergunta');
+            var textarea = document.getElementById('question');
             textarea.value = ''; 
             textarea.focus(); 
         }
@@ -25,26 +25,26 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.querySelectorAll('.icon-link').forEach(function(link) {
         link.addEventListener('click', function() {
-            var pergunta = this.getAttribute('data-pergunta');
-            document.getElementById('pergunta').value = pergunta;
+            var question = this.getAttribute('data-question');
+            document.getElementById('question').value = question;
         });
     });
 
-    let clearQuestion = document.getElementById('limparPergunta');
+    let clearQuestion = document.getElementById('clear-question');
     
     if (clearQuestion) {
         clearQuestion.addEventListener('click', function() {
-            document.getElementById('pergunta').value = '';
+            document.getElementById('question').value = '';
         });
     }
 
-    let sendQuestion = document.getElementById('enviarPergunta');
+    let sendQuestion = document.getElementById('send-question');
 
     if (sendQuestion) {
         
-        document.getElementById('enviarPergunta').onclick = async function (event) {
+        sendQuestion.onclick = async function () {
 
-            const question = document.getElementById('pergunta').value;
+            const question = document.getElementById('question').value;
             var loadingEffect = document.getElementById('loadingEffect');
         
             if (!question) {
@@ -68,9 +68,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
                 loadingEffect.style.display = 'none';
     
-                alert("Pergunta enviada com sucesso: " + pergunta);
+                alert("Pergunta enviada com sucesso: " + question);
     
-                M.Modal.getInstance(document.getElementById('modalPergunta')).close();
+                M.Modal.getInstance(document.getElementById('modal-question')).close();
         
                 console.log(data); 
         
@@ -79,7 +79,154 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         };
     }
+
+    // Carrega os dados da API ao iniciar
+    updateChartData();
+
+    // Atualiza os dados a cada 5 minutos (300.000 milissegundos)
+    setInterval(updateChartData, 300000);
 });
+
+const memoryData = {
+    title: 'Consumo de Memória', 
+    chartType: 'bar',    
+
+    datasets: {
+        label: 'Memória',
+        data: [], 
+        backgroundColor: generateColors(2),
+        labels: ['Usada', 'Livre']
+    }
+};
+
+const diskData = {
+    title: 'Consumo de Disco', 
+    chartType: 'bar',     
+
+    datasets: {
+        label: 'Disco',
+        data: [],
+        backgroundColor: generateColors(2),
+        labels: ['Usada', 'Livre']
+    }
+};
+
+const cpuData = {
+    title: 'Consumo de CPU',
+    chartType: 'bar',       
+    
+    datasets: {
+        label: 'CPU',
+        data: [], 
+        backgroundColor: [],
+        labels: [], 
+    }
+};
+
+const card_ip = document.querySelector('.card-ip');
+const card_time = document.querySelector('.card-time');
+const graphics = document.querySelector('.graphics');
+const card_question = document.querySelector('.card-question');
+
+// Variável para controlar o carregamento inicial
+let isInitialLoad = true; 
+
+function formatUptime(seconds) {
+
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const secs = Math.floor(seconds % 60);
+
+    // Adiciona um zero à esquerda se necessário
+    const time = (num) => (num < 10 ? `0${num}` : num);
+
+    return `${time(hours)}:${time(minutes)}:${time(secs)}`;
+}
+
+async function fetchSystemInfo() {
+    try {
+        const response = await fetch('/system-info');
+        if (!response.ok) {
+            throw new Error(`Erro na requisição: ${response.statusText}`);
+        }
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Erro ao buscar dados da API:', error);
+        return null;
+    }
+}
+
+async function updateChartData() {
+
+    const systemInfo = await fetchSystemInfo();
+    const ip_system = document.getElementById('ip-system');
+    const time_system = document.getElementById('time-system');
+
+    if (systemInfo) {
+
+        // Atualiza o endereço IP
+        ip_system.textContent = systemInfo.ip_address;
+
+        if (isInitialLoad) {
+            card_ip.classList.remove('hidden');
+            card_ip.classList.add('visible');
+        }
+
+        // Inicia a contagem do tempo de atividade
+        startUptimeCounter(systemInfo.uptime.seconds, time_system);
+
+        if (isInitialLoad) {
+            card_time.classList.remove('hidden');
+            card_time.classList.add('visible');
+        }
+
+        if (isInitialLoad) {
+            card_question.classList.remove('hidden');
+            card_question.classList.add('visible');
+        }
+
+        // Atualiza os dados de memória
+        memoryData.datasets.data = [
+            systemInfo.memory_usage.used_percent,
+            systemInfo.memory_usage.free_percent
+        ];
+
+        // Atualiza os dados de disco
+        diskData.datasets.data = [
+            systemInfo.disk_usage.used_percent,
+            systemInfo.disk_usage.free_percent
+        ];
+
+        // Atualiza os dados de CPU
+        cpuData.datasets.data = systemInfo.cpu_usage_per_core;
+        cpuData.datasets.labels = systemInfo.cpu_usage_per_core.map((_, index) => `CPU ${index + 1}`);
+        cpuData.datasets.backgroundColor = generateColors(systemInfo.cpu_usage_per_core.length); 
+
+        // Re-renderiza o gráfico atual
+        renderGraphic(currentData);
+
+        if (isInitialLoad) {
+            graphics.classList.remove('hidden');
+            graphics.classList.add('visible');
+        }
+    }
+}
+
+function startUptimeCounter(initialSeconds, element) {
+    
+    let seconds = initialSeconds;
+
+    element.textContent = formatUptime(seconds);
+    const interval = setInterval(() => {
+        seconds += 1; 
+        element.textContent = formatUptime(seconds);
+    }, 1000);
+
+    window.addEventListener('beforeunload', () => {
+        clearInterval(interval);
+    });
+}
 
 function generateColors(length) {
 
@@ -109,42 +256,6 @@ function generateColors(length) {
     }
     return colors;
 }
-
-const memoryData = {
-    title: 'Consumo de Memória', 
-    chartType: 'bar',    
-
-    datasets: {
-        label: 'Memória',
-        data: [20, 30], 
-        backgroundColor: generateColors(2),
-        labels: ['Usada', 'Livre']
-    }
-};
-
-const diskData = {
-    title: 'Consumo de Disco', 
-    chartType: 'bar',     
-
-    datasets: {
-        label: 'Disco',
-        data: [30, 80],
-        backgroundColor: generateColors(2),
-        labels: ['Usada', 'Livre']
-    }
-};
-
-const cpuData = {
-    title: 'Consumo de CPU',
-    chartType: 'bar',       
-    
-    datasets: {
-        label: 'CPU',
-        data: [25, 35, 20, 20], 
-        backgroundColor: generateColors(4),
-        labels: ['CPU 1', 'CPU 2', 'CPU 3', 'CPU 4'], 
-    }
-};
 
 const title_graphic = document.querySelector('.title-graphic');
 const btnMemory = document.querySelector('#btnMemory');
@@ -199,26 +310,38 @@ function updateChartType(type) {
 }
 
 const btnBarChart = document.getElementById('btnBarChart');
+const btnLineChart = document.getElementById('btnLineChart');
+const btnPieChart = document.getElementById('btnPieChart');
 
 if (btnBarChart) {
     btnBarChart.addEventListener('click', () => {
         updateChartType('bar');
+
+        btnBarChart.style.backgroundColor = '#215341';
+        btnLineChart.style.backgroundColor = 'transparent';
+        btnPieChart.style.backgroundColor = 'transparent';
+
     });
 }
-
-const btnLineChart = document.getElementById('btnLineChart');
 
 if (btnLineChart) {
     btnLineChart.addEventListener('click', () => {
         updateChartType('line');
+
+        btnBarChart.style.backgroundColor = 'transparent';
+        btnLineChart.style.backgroundColor = '#215341';
+        btnPieChart.style.backgroundColor = 'transparent';
     });
 }
 
-const btnPieChart = document.getElementById('btnPieChart');
 
 if (btnPieChart) {
     btnPieChart.addEventListener('click', () => {
         updateChartType('pie');
+
+        btnBarChart.style.backgroundColor = 'transparent';
+        btnLineChart.style.backgroundColor = 'transparent';
+        btnPieChart.style.backgroundColor = '#215341';
     });
 }
 
@@ -228,6 +351,12 @@ if (btnMemory) {
         btnMemory.style.backgroundColor = '#215341';
         btnDisk.style.backgroundColor = 'transparent';
         btnCPU.style.backgroundColor = 'transparent';
+
+        btnBarChart.style.backgroundColor = '#215341';
+        btnLineChart.style.backgroundColor = 'transparent';
+        btnPieChart.style.backgroundColor = 'transparent';
+
+        memoryData.chartType = 'bar';
         currentData = memoryData; 
         renderGraphic(currentData);
     });
@@ -239,6 +368,12 @@ if (btnDisk) {
         btnMemory.style.backgroundColor = 'transparent';
         btnDisk.style.backgroundColor = '#215341';
         btnCPU.style.backgroundColor = 'transparent';
+
+        btnBarChart.style.backgroundColor = '#215341';
+        btnLineChart.style.backgroundColor = 'transparent';
+        btnPieChart.style.backgroundColor = 'transparent';
+
+        diskData.chartType = 'bar';
         currentData = diskData;
         renderGraphic(currentData); 
     });
@@ -250,9 +385,13 @@ if (btnCPU) {
         btnMemory.style.backgroundColor = 'transparent';
         btnDisk.style.backgroundColor = 'transparent';
         btnCPU.style.backgroundColor = '#215341';
+
+        btnBarChart.style.backgroundColor = '#215341';
+        btnLineChart.style.backgroundColor = 'transparent';
+        btnPieChart.style.backgroundColor = 'transparent';
+
+        cpuData.chartType = 'bar';
         currentData = cpuData; 
         renderGraphic(currentData); 
     });
 }
-
-renderGraphic(currentData);
