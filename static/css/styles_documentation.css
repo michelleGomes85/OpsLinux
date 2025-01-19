@@ -16,7 +16,7 @@
 
 .list-unstyled li:first-child a {
     font-weight: normal !important;
-    color: #20B2AA !important;
+    color: #fff !important;
 }
 
 .list-unstyled li:first-child a:hover {
@@ -184,6 +184,10 @@ code {
 .btn-floating.btn-large i { 
     background-color: #037a76 !important;
     color: #fff;
+}
+
+.link-info {
+    color: #47afb1 !important;
 }
 
 @media screen and (max-width: 992px) {

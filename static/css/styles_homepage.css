@@ -14,7 +14,7 @@ header {
 }
 
 .text-success {
-    color: #20B2AA !important;
+    color: #fff !important;
     font-size: 1.1rem;
 }
 
@@ -88,12 +88,27 @@ nav {
     transform: translateY(-5px);
 }
 
+.card-body h3{
+    margin: 1.5rem;
+    font-weight: bold;
+}
+
+.card-body p {
+    text-transform: uppercase;
+}
+
+.card-body i {
+    font-size: 2rem;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+}
+
 .modal {
     background-color: rgba(0, 0, 0, 0.8); 
 }
 
 .modal-content {
-    border: 1px solid #28a745;
+    border: 1px solid #009688;
     border-radius: 10px;
     background-color: #121212;
     padding: 20px;
@@ -102,7 +117,7 @@ nav {
 }
 
 .modal-footer {
-    border-top: 1px solid #28a745;
+    border-top: 1px solid #009688
 }
 
 .icon-link {
@@ -122,14 +137,14 @@ nav {
 .input-field textarea {
     height: 150px !important;
     color: #fff !important;
-    border: 1px solid #28a745 !important;
+    border: 1px solid #215341 !important;
     border-radius: 5px;
     padding: 20px !important;
-    background-color: #121212 !important;
+    background-color: #000!important;
 }
 
 .input-field textarea:focus {
-    border-color: #20c997 !important;
+    border-color: #215341 !important;
     box-shadow: 0 0 5px rgba(40, 167, 69, 0.5) !important;
 }
 
@@ -171,6 +186,46 @@ nav {
     100% {
         transform: translateX(100%);
     }
+}
+
+.graphics {
+    padding-top: 50px;
+}
+
+.graphics .links {
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1px solid #dfdde0;
+    padding-bottom: 20px;
+}
+
+.graphics .links div button{
+    border: none;
+    margin: 0 20px 0 0;
+}
+
+.graphic-sep {
+    padding: 50px 0;
+}
+
+.button-type-graphic {
+    margin-top: 3rem !important;
+}
+
+.button-type-graphic button {
+    margin-left: 20px;
+}
+
+h4.title-graphic {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-top: 80px;
+    margin-bottom: 30px;
+    line-height: 3rem;
+}
+
+#btnMemory {
+    background-color: #215341;
 }
 
 @media screen and (max-width: 992px) {

@@ -47,7 +47,7 @@
 
                 <nav class="d-none d-lg-flex justify-content-center">
                     <ul class="list-unstyled d-flex mb-0">
-                        <li class="mx-3"><a href="/" class="text-decoration-none text-success">Question</a></li>
+                        <li class="mx-3"><a href="/" class="text-decoration-none text-success">System</a></li>
                         <li class="mx-3"><a href="/doc" class="text-decoration-none text-success">Docs</a></li>
                         <li class="mx-3"><a href="#" class="text-decoration-none text-success">Info</a></li>
                     </ul>
@@ -79,8 +79,8 @@
 
     <!-- Menu Mobile -->
     <ul class="sidenav" id="mobile-menu">
-        <li><a href="#" class="text-success">Question</a></li>
-        <li><a href="#" class="text-success">Docs</a></li>
+        <li><a href="#" class="text-success">System</a></li>
+        <li><a href="/doc" class="text-success">Docs</a></li>
         <li><a href="#" class="text-success">Info</a></li>
 
         <li><div class="divider"></div></li>
@@ -156,10 +156,10 @@
                     <p><strong>Versão:</strong> {{ project.version }}</p>
                     <p><strong>Autores:</strong>
                         {% for author in project.authors %}
-                            <a target="_blank" href="{{ author.github }}" class="text-success">{{ author.name }}</a>{% if not loop.last %}, {% endif %}
+                            <a target="_blank" href="{{ author.github }}" class="text-success link-info">{{ author.name }}</a>{% if not loop.last %}, {% endif %}
                         {% endfor %}
                     </p>
-                    <p><strong>Repositório:</strong> <a target="_blank" href="{{ project.gitrepo }}" class="text-success">GitHub</a></p>
+                    <p><strong>Repositório:</strong> <a target="_blank" href="{{ project.gitrepo }}" class="text-success link-info">GitHub</a></p>
                     <p><strong>Última Atualização:</strong> {{ project.last_modified }}</p>
                 </div>
                 <div class="modal-footer border-success">

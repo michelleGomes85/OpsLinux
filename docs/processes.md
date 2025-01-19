@@ -9,6 +9,8 @@
 
 Retorna uma lista de processos em execução no sistema, incluindo o PID, nome do processo, usuário, consumo de CPU e memória, tempo de execução e o comando que originou o processo.
 
+## Exemplo de Resposta
+
 ```json
 [
     {

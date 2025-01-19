@@ -80,3 +80,179 @@ document.addEventListener('DOMContentLoaded', function() {
         };
     }
 });
+
+function generateColors(length) {
+
+    const colors = [];
+    const greenShades = [
+        'rgba(32, 178, 170, 0.5)', // cor base
+        'rgba(38, 188, 177, 0.5)', // mais claro
+        'rgba(24, 168, 153, 0.5)', // mais escuro
+        'rgba(20, 150, 135, 0.5)', // mais escuro ainda
+        'rgba(28, 140, 125, 0.5)'  // tom intermediário
+    ]; 
+    
+    const blueShades = [
+        'rgba(17, 132, 137, 0.5)', // cor base (azul)
+        'rgba(23, 145, 150, 0.5)', // mais claro
+        'rgba(12, 120, 130, 0.5)', // mais escuro
+        'rgba(10, 110, 120, 0.5)', // mais escuro ainda
+        'rgba(18, 135, 140, 0.5)'  // tom intermediário
+    ];
+
+    for (let i = 0; i < length; i++) {
+        if (i % 2 === 0) {
+            colors.push(greenShades[i % greenShades.length]);
+        } else {
+            colors.push(blueShades[i % blueShades.length]); 
+        }
+    }
+    return colors;
+}
+
+const memoryData = {
+    title: 'Consumo de Memória', 
+    chartType: 'bar',    
+
+    datasets: {
+        label: 'Memória',
+        data: [20, 30], 
+        backgroundColor: generateColors(2),
+        labels: ['Usada', 'Livre']
+    }
+};
+
+const diskData = {
+    title: 'Consumo de Disco', 
+    chartType: 'bar',     
+
+    datasets: {
+        label: 'Disco',
+        data: [30, 80],
+        backgroundColor: generateColors(2),
+        labels: ['Usada', 'Livre']
+    }
+};
+
+const cpuData = {
+    title: 'Consumo de CPU',
+    chartType: 'bar',       
+    
+    datasets: {
+        label: 'CPU',
+        data: [25, 35, 20, 20], 
+        backgroundColor: generateColors(4),
+        labels: ['CPU 1', 'CPU 2', 'CPU 3', 'CPU 4'], 
+    }
+};
+
+const title_graphic = document.querySelector('.title-graphic');
+const btnMemory = document.querySelector('#btnMemory');
+const btnDisk = document.querySelector('#btnDisk');
+const btnCPU = document.querySelector('#btnCPU');
+
+let currentChart = null; 
+let currentData = memoryData; 
+
+function renderGraphic(dataGraphic) {
+
+    var ctx = document.getElementById('memoryChart');
+
+    if (!ctx)
+        return;
+
+    var ctx = ctx.getContext('2d');
+
+    if (currentChart) {
+        currentChart.destroy();
+    }
+
+    currentChart = new Chart(ctx, {
+        type: dataGraphic.chartType,
+        data: {
+            labels: dataGraphic.datasets.labels,
+            datasets: [{
+                data: dataGraphic.datasets.data,
+                backgroundColor: dataGraphic.datasets.backgroundColor, 
+                borderColor: dataGraphic.datasets.backgroundColor, 
+                borderWidth: 1
+            }]
+        },
+        options: {
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            },
+        }
+    });
+}
+
+function updateChartType(type) {
+    currentData.chartType = type; 
+    renderGraphic(currentData);
+}
+
+const btnBarChart = document.getElementById('btnBarChart');
+
+if (btnBarChart) {
+    btnBarChart.addEventListener('click', () => {
+        updateChartType('bar');
+    });
+}
+
+const btnLineChart = document.getElementById('btnLineChart');
+
+if (btnLineChart) {
+    btnLineChart.addEventListener('click', () => {
+        updateChartType('line');
+    });
+}
+
+const btnPieChart = document.getElementById('btnPieChart');
+
+if (btnPieChart) {
+    btnPieChart.addEventListener('click', () => {
+        updateChartType('pie');
+    });
+}
+
+if (btnMemory) {
+    document.getElementById('btnMemory').addEventListener('click', () => {
+        title_graphic.textContent = 'Gráfico Consumo de Memória';
+        btnMemory.style.backgroundColor = '#215341';
+        btnDisk.style.backgroundColor = 'transparent';
+        btnCPU.style.backgroundColor = 'transparent';
+        currentData = memoryData; 
+        renderGraphic(currentData);
+    });
+}
+
+if (btnDisk) {
+    document.getElementById('btnDisk').addEventListener('click', () => {
+        title_graphic.textContent = 'Gráfico Consumo de Disco';
+        btnMemory.style.backgroundColor = 'transparent';
+        btnDisk.style.backgroundColor = '#215341';
+        btnCPU.style.backgroundColor = 'transparent';
+        currentData = diskData;
+        renderGraphic(currentData); 
+    });
+}
+
+if (btnCPU) {
+    document.getElementById('btnCPU').addEventListener('click', () => {
+        title_graphic.textContent = 'Gráfico Consumo de CPU em cada núcleo';
+        btnMemory.style.backgroundColor = 'transparent';
+        btnDisk.style.backgroundColor = 'transparent';
+        btnCPU.style.backgroundColor = '#215341';
+        currentData = cpuData; 
+        renderGraphic(currentData); 
+    });
+}
+
+renderGraphic(currentData);
