@@ -86,7 +86,7 @@ async function updateChartData() {
     if (systemInfo) {
 
         // Atualiza o endereço IP
-        ip_system.textContent = systemInfo.ip_address;
+        ip_system.textContent = systemInfo.ip_address.ipv4;
 
         if (isInitialLoad) {
             card_ip.classList.remove('hidden');

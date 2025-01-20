@@ -58,9 +58,9 @@
             <li><a href="#" class="text-success">Info</a></li>
         </ul>
 
-        <main class="text-light py-5">
+        <main class="text-light py-5">         
 
-            <div class="container">
+            <div class="container container-in">
 
                 <div class="row mt-5">
 
@@ -167,9 +167,16 @@
                     </div>
                 </div>
 
-                <!-- Caixa de Texto -->
+                <!-- Caixa de Texto com Ícone de Microfone -->
                 <div class="input-field mt-4">
                     <textarea id="question" class="materialize-textarea bg-dark text-light" placeholder="Faça uma pergunta sobre o sistema..." style="height: 150px;"></textarea>
+                    
+                    <div id="microphone-container">
+                        <!-- Ícone de Microfone -->
+                        <span id="microphone" class="microphone-icon">
+                            <i class="material-icons">mic</i>
+                        </span>
+                    </div>
                 </div>
 
                 <!-- Efeito de Carregamento -->

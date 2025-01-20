@@ -38,8 +38,15 @@ Essa rota pode ser utilizada para monitorar o desempenho da CPU, identificar pro
 """
 @cpu_bp.route('/', methods=['GET'])
 def get_cpu_info():
+
     cpu_count = psutil.cpu_count(logical=True)
-    cpu_usage = psutil.cpu_percent(percpu=True)
+    
+    # Inicializa a medição (ignora o resultado) -> Usada para ter um resultado mais preciso
+    psutil.cpu_percent(interval=0.1)
+    
+    # Uso da CPU por núcleo (com intervalo de 0.1 segundos)
+    cpu_usage = psutil.cpu_percent(interval=0.1, percpu=True)
+
     cpu_frequency = psutil.cpu_freq()
 
     # Obtendo temperaturas (se suportado pelo hardware)

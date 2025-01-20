@@ -81,3 +81,73 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+const isSpeechRecognitionSupported = 'webkitSpeechRecognition' in window || 'SpeechRecognition' in window;
+
+if (!isSpeechRecognitionSupported) {
+    alert('Seu navegador não suporte reconhecimento de voz. Use Chrome ou outro navegador moderno');
+} else {
+
+    // Criando uma instância do objeto de reconhecimento de voz
+    const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+    recognition.lang = 'pt-BR'; 
+    recognition.interimResults = false;
+
+    const textarea = document.getElementById('question');
+    const microphone = document.getElementById('microphone');
+    const microphoneContainer = document.getElementById('microphone-container');
+
+    // Variable to track if the microphone is active
+    let isListening = false;
+
+    // Função começar a escutar
+    const startListening = () => {
+        recognition.start(); 
+        textarea.placeholder = "Escutando ...";
+        textarea.disabled = true; 
+        isListening = true;
+
+        const pulseEffect = document.createElement('div');
+        pulseEffect.classList.add('pulsating-effect');
+        microphoneContainer.appendChild(pulseEffect);
+    };
+
+    // Função para de escutar
+    const stopListening = () => {
+        recognition.stop(); 
+        textarea.placeholder = "Faça uma pergunta sobre o sistema ...";
+        textarea.disabled = false; 
+        isListening = false;
+
+        const pulseEffect = microphoneContainer.querySelector('.pulsating-effect');
+        if (pulseEffect)
+            pulseEffect.remove();
+    };
+
+    if (microphone) {
+        microphone.addEventListener('click', () => {
+            if (isListening)
+                stopListening();
+            else
+                startListening();
+        });
+    
+        // Transcrever o resultado no textArea
+        recognition.onresult = (event) => {
+            const transcript = event.results[0][0].transcript;
+            textarea.value = transcript;
+            stopListening(); 
+        };
+    
+        // Se ocorre um erro ao escutar
+        recognition.onerror = (event) => {
+            textarea.placeholder = "Erro ao escutar tente novamente";
+            stopListening(); 
+        };
+    
+        // Quando o reconhecimento de voz terminar
+        recognition.onend = () => {
+            stopListening();
+        };
+    }
+
+}

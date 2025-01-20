@@ -56,7 +56,6 @@ main {
     background-color: #000;
     color: #fff;
     display: flex;
-    text-align: justify;
 }
 
 .card:hover {
@@ -187,7 +186,7 @@ code {
 
 .btn-floating.btn-large i { 
     background-color: #037a76 !important;
-    color: #fff;
+    color: #fff !important;
 }
 
 .link-info {
