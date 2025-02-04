@@ -1,0 +1,9 @@
+flask
+psutil
+requests
+dash
+dash_bootstrap_components
+google-generativeai
+python-dotenv
+markdown
+dash_daq

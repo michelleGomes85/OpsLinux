@@ -1,0 +1,498 @@
+.content-result {
+    display: flex;
+    max-width: 1500px;
+    width: 90vw;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+    font-size: 1.2rem;
+}
+
+.banner {
+    margin-top: 50px;
+    width: 85%;
+    background-color: #051428;
+    border: 1px solid rgb(85, 105, 127);
+    padding: 50px;
+    border-radius: 10px;
+    height: 350px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.subtitle {
+    font-size: 2.2rem !important;
+    color: white;
+    margin-bottom: 40px;
+    font-weight: bold;
+    line-height: 3rem;
+}
+
+.subtitle .highlight {
+    font-size: 2.2rem !important;
+    color: #20B2AA;
+}
+
+.button-section {
+    display: flex;
+    justify-content: center;
+}
+
+.btn-question {
+    background-color: transparent !important;
+    border: 1px solid rgb(85, 105, 127);
+}
+
+.btn-question:hover,
+.btn-question:focus {
+    background-color: rgb(85, 105, 127);
+}
+
+.btn, .btn-large, .btn-small, .btn-flat {
+    height: 50px;
+    line-height: 50px;
+}
+
+/* IP e Tempo */
+.ip-time {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    width: 900px;
+    margin-top: 50px;
+}
+
+.uptime-section,
+.ip-section {
+    border: 1px solid rgb(85 105 127);
+    border-radius: 5px;
+    position: relative;
+    padding: 50px;
+    width: 450px;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    background-color: rgb(5, 20, 40);
+}
+
+.ip-div {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+#ip-display-ip-text {
+    display: block;
+    font-weight: bolder;
+    margin-bottom: 10px;
+    line-height: 1rem !important;
+}
+
+.uptime-section {
+    text-align: center;
+    align-items: center;
+}
+
+.uptime-section::before {
+    content: "Tempo de Atividade";
+    position: absolute;
+    top: -15px;
+    left: 20px;
+    background-color: #061e36;
+    padding: 0 20px;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.ip-section::before {
+    content: "Endereço IP";
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    background-color: #061e36;
+    padding: 0 20px;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.chart-container {
+    position: relative;
+    width: 200px;
+    height: 100px; 
+    overflow: hidden; 
+}
+
+.donut {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: conic-gradient(
+        #A3D5FF 0% 100%,
+        #0077cc 0% 0% 
+    );
+
+    mask: radial-gradient(circle, transparent 50%, black 51%);
+    -webkit-mask: radial-gradient(circle, transparent 50%, black 51%);
+    transition: background 0.5s linear;
+    transform: rotate(-90deg);
+}
+
+.graphs-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 90%;
+    margin-top: 50px;
+    border: 1px solid rgb(85 105 127);
+    padding: 20px;
+    position: relative;
+}
+
+.graphs-section::before {
+    content: "Graficos";
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    background-color: #061e36;
+    padding: 0 20px;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.memory-disk-container {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+}
+
+.memory-section, .disk-section {
+    flex: 1; 
+}
+
+.cpu-section {
+    width: 100%;
+}
+
+.modebar {
+    position: absolute !important;
+    right: -50px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+}
+
+.item-doc, .item-dash {
+    border-right: 2px solid #A3D5FF;
+}
+
+.item-doc i, .item-dash i {
+    color: #A3D5FF !important;
+}
+
+#ip-display-ipv6 {
+    display: none;
+}
+
+#ip-toggle-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    font-size: 15px;
+    border-radius: 10px;
+    background-color: #fff;
+    color: #fff;
+    border: 1px solid #A3D5FF;
+    cursor: pointer;
+    color: rgb(3, 122, 118);
+}
+
+#ip-toggle-icon:hover {
+    background-color: #A3D5FF;
+}
+
+.modal {
+    height: 100vh !important;
+    max-height: 100vh !important;
+    max-width: 100vw !important;
+    width: 100vw !important;
+    background-color: #000;
+}
+
+.modal-content {
+    border: 1px solid #26a69a;
+    border-radius: 10px;
+    background-color: #151b23 !important;
+    padding: 40px 30px !important;
+    max-width: 600px;
+    margin: 0 auto; 
+    margin-top: 10vh;
+}
+
+.modal .modal-footer {
+    background-color: #151b23 !important;
+}
+
+.text-success {
+    color: #26a69a !important;
+}
+
+.modal-footer {
+    border-top: 1px solid #26a69a
+}
+
+.icon-link {
+    color: #cdd0d5 !important;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.icon-link:hover {
+    color: #26a69a !important;
+    cursor: pointer;
+}
+
+.icon-link i {
+    font-size: 3rem;
+}
+
+.text-questions {
+    display: flex;
+    gap: 30px;
+}
+
+.icons-question {
+    display: flex;
+    justify-content: center;
+}
+
+.input-field textarea {
+    height: 220px !important;
+    color: #fff !important;
+    border: 1px solid #26a69a!important;
+    border-radius: 5px;
+    padding: 20px !important;
+    background-color: #000!important;
+}
+
+.input-field textarea:focus {
+    border-color: #26a69a !important;
+    box-shadow: 0 0 5px rgba(40, 167, 69, 0.5) !important;
+}
+
+.btn-large i.right {
+    color: #fff;
+}
+
+.loading-effect {
+    width: 100%;
+    height: 4px;
+    background-color: #121212;
+    position: relative;
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+.loading-bar {
+    width: 100%;
+    height: 100%;
+    background-color: #26a69a;
+    position: absolute;
+    animation: loading 2s linear infinite;
+}
+
+@keyframes loading {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+.text-questions .col-3 i {
+    color: #fff !important;
+}
+
+#microphone-container {
+    padding: 20px 10px 10px;
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.microphone-icon i {
+    color: #fff !important;
+}
+
+.microphone-icon i:hover {
+    color: #26a69a !important;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.2);
+        opacity: 0.7;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.pulsating-effect {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.3);
+    animation: pulse 1.5s infinite;
+    z-index: 0;
+}
+
+
+@media (max-width: 1024px) {
+    .subtitle {
+        font-size: 1.8rem !important;
+        line-height: 2.5rem;
+    }
+
+    .subtitle .highlight {
+        font-size: 1.8rem !important;
+    }
+
+    .ip-time {
+        flex-direction: column;
+        width: 100%;
+        align-items: center;
+    }
+
+    .uptime-section, .ip-section {
+        width: 90%;
+        padding: 30px;
+    }
+
+    .graphs-section {
+        width: 100%;
+        padding: 15px;
+    }
+
+    .memory-disk-container {
+        flex-direction: column;
+    }
+
+    .memory-section, .disk-section {
+        width: 100%;
+    }
+
+    .cpu-section {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .subtitle {
+        font-size: 1.5rem !important;
+        line-height: 2rem;
+    }
+
+    .subtitle .highlight {
+        font-size: 1.5rem !important;
+    }
+
+    .ip-time {
+        flex-direction: column;
+        width: 100%;
+        align-items: center;
+    }
+
+    .uptime-section, .ip-section {
+        width: 95%;
+        padding: 25px;
+    }
+
+    .graphs-section {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .memory-disk-container {
+        flex-direction: column;
+    }
+
+    .memory-section, .disk-section {
+        width: 100%;
+    }
+
+    .cpu-section {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .banner {
+        width: 95%;
+    }
+
+    .subtitle {
+        font-size: 1.8rem !important;
+        line-height: 2.6rem;
+    }
+
+    .subtitle .highlight {
+        font-size: 1.8rem !important;
+    }
+
+    .ip-time {
+        flex-direction: column;
+        width: 100%;
+        align-items: center;
+    }
+
+    .uptime-section, .ip-section {
+        width: 100%;
+        padding: 30px;
+    }
+
+    .ip-section {
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .uptime-section {
+        margin-top: 50px;
+    }
+
+    .graphs-section {
+        width: 100%;
+        padding: 20px;
+    }
+
+    .memory-disk-container {
+        flex-direction: column;
+    }
+
+    .memory-section, .disk-section {
+        width: 100%;
+    }
+
+    .cpu-section {
+        width: 100%;
+    }
+}
