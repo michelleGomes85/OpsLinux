@@ -1,5 +1,7 @@
 import os
 import markdown
+import requests
+import json
 
 from flask import Flask
 from flask import Flask, send_from_directory
@@ -18,6 +20,8 @@ from routes.system_info import system_info_bp
 
 from utils.utils import get_documentation
 from services.ai_service import first_agent
+
+API_BASE_URL = "http://localhost:5002{endpoint}"
 
 app = Flask(__name__)
 
@@ -75,14 +79,25 @@ def generate_response():
 
         prompt =  f'''
         
-        Analise a seguinte documentação {documentation}.
+        analise cuidadosamente a seguinte documentação:  {documentation}  
 
-    
-        Segundo a analise feita, forneça os endpoints necessarios para responder a seguinte pergunta {question}.
+        Com base nessa análise, determine quais endpoints são necessários para responder à seguinte pergunta:  "{question}"  
 
+        Se a pergunta fizer sentido com a documentação disponível, forneça a resposta no seguinte formato JSON:  
 
-        Forneça a resposta em formato JSON onde eu tenho uma chave chamada endpoints e nessa chave 
-        uma lista dos endpoints selecionados.
+        {{
+            "endpoints": ["endpoint1", "endpoint2", ...],
+            "error": null
+        }}
+
+        Caso a pergunta **não tenha relação** com a documentação, retorne um JSON com uma explicação bem-humorada e um trocadilho com Linux sobre o motivo da informação não existir. Exemplo:  
+
+        {{
+            "endpoints": [],
+            "error": Informação não encontrada. Parece que essa pergunta fugiu do escopo, assim como processos zumbis fogem do controle no Linux."
+        }}
+
+        Certifique-se de que a resposta esteja bem formatada e estruturada conforme os exemplos acima.  
 
         '''
 
@@ -92,11 +107,50 @@ def generate_response():
             'response': response,
         }
 
-        return jsonify(response_data)
+        
+        json_response = json.loads(response_data['response'])
+
+        responde_teste = ""
+
+        for e in json_response['endpoints']:
+            responde_teste += json.dumps(fetch_system_info(e))
+            print(responde_teste)
+
+        prompt_second = f'''
+            Considerando a seguinte infomração em JSON sobre uma máquina linux: 
+            
+            {responde_teste}, 
+            
+            Responda a seguinte pergunta: {question}. 
+            
+            Estruture sua resposta em linguagem natural, como o JSON a seguir:
+
+            {{
+                'question': 'Qual é o espaço livre no disco?',
+                'response': "Há 32 GB de espaço livre em disco."
+
+            }}
+        '''
+
+        response_second = first_agent(prompt_second)
+
+        return jsonify(response_second)
 
     except Exception as e:
         print(f"Erro: {e}")
         return jsonify({'error': 'Erro interno do servidor'}), 500
+    
+
+def fetch_system_info(endpoint):
+    try:
+        response = requests.get(API_BASE_URL.format(endpoint=endpoint), timeout=30)
+        response.raise_for_status()
+        return response.json()
+    except requests.RequestException as e:
+        print(f"Erro ao buscar dados: {e}")
+        return None
+        
+
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5002)
