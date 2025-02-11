@@ -31,16 +31,40 @@ Essa rota pode ser utilizada para monitorar o uso do disco, identificando quando
 
 @disk_bp.route('/', methods=['GET'])
 def get_disk_info():
-
     disk = psutil.disk_usage('/')
-    total_space_gb = disk.total / (1024**3)
-    used_space_gb = disk.used / (1024**3)
-    free_space_gb = disk.free / (1024**3)
-    percent_used = disk.percent
+    # Informações sobre todas as partições
+    partitions = psutil.disk_partitions()
+    disk_info = []
+
+    for partition in partitions:
+        usage = psutil.disk_usage(partition.mountpoint)
+        partition_info = {
+            "device": partition.device,
+            "mountpoint": partition.mountpoint,
+            "fstype": partition.fstype,
+            "total_space_gb": round(usage.total / (1024**3), 2),
+            "used_space_gb": round(usage.used / (1024**3), 2),
+            "free_space_gb": round(usage.free / (1024**3), 2),
+            "percent_used": usage.percent
+        }
+        disk_info.append(partition_info)
+
+    # Estatísticas de I/O do disco
+    disk_io = psutil.disk_io_counters()
+    disk_io_info = {
+        "read_count": disk_io.read_count,
+        "write_count": disk_io.write_count,
+        "read_bytes_gb": round(disk_io.read_bytes / (1024**3), 2),
+        "write_bytes_gb": round(disk_io.write_bytes / (1024**3), 2),
+        "read_time_ms": disk_io.read_time,
+        "write_time_ms": disk_io.write_time
+    }
 
     return jsonify({
-        'total_space_gb': round(total_space_gb, 2),
-        'used_space_gb': round(used_space_gb, 2),
-        'free_space_gb': round(free_space_gb, 2),
-        'percent_used': percent_used
+        "partitions": disk_info,
+        "disk_io": disk_io_info,
+        'total_space_gb': round(disk.total / (1024**3), 2),
+        'used_space_gb': round(disk.used / (1024**3), 2),
+        'free_space_gb': round(disk.free / (1024**3), 2),
+        'percent_used': disk.percent
     })
