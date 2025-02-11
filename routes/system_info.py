@@ -5,58 +5,75 @@ import psutil
 # Cria o Blueprint para a rota /system-info
 system_info_bp = Blueprint('system_info', __name__)
 
-API_BASE_URL = "http://localhost:5000"
+API_BASE_URL = "http://localhost:5002"
 
 def get_network_info():
-
     """
     Obtém os endereços IPv4 e IPv6 da máquina.
     Retorna um dicionário com os endereços ou "N/A" se não encontrados.
     """
+    try:
+        network_response = requests.get(f"{API_BASE_URL}/network")
+        network_response.raise_for_status()  # Verifica se a requisição foi bem-sucedida
+        network_data = network_response.json()
 
-    network_response = requests.get(f"{API_BASE_URL}/network")
-    network_data = network_response.json()
+        ipv4_address = "N/A"
+        ipv6_address = "N/A"
 
-    ipv4_address = "N/A"
-    ipv6_address = "N/A"
+        # Valores esperados para as famílias de endereços (IPv4 e IPv6)
+        AF_INET_VALUES = [
+            "2", 
+            "AF_INET", 
+            "inet",  
+            "IPv4",  
+            "ipv4",
+            "AddressFamily.AF_INET"
+        ]
 
-    # Valores esperados para as famílias de endereços (IPv4 e IPv6)
-    AF_INET_VALUES = [
-        "2", 
-        "AF_INET", 
-        "inet",  
-        "IPv4",  
-        "ipv4" ,
-        "AddressFamily.AF_INET"
-    ]
+        AF_INET6_VALUES = [
+            "10",  
+            "AF_INET6", 
+            "inet6", 
+            "IPv6",  
+            "ipv6",
+            "AddressFamily.AF_INET6"  
+        ]
 
-    AF_INET6_VALUES = [
-        "10",  
-        "AF_INET6", 
-        "inet6", 
-        "IPv6",  
-        "ipv6",
-        "AddressFamily.AF_INET6"  
-    ]
+        # Verifica se a resposta é um dicionário
+        if not isinstance(network_data, dict):
+            raise ValueError("Resposta da API /network não é um dicionário")
 
-    for interface, addresses in network_data.items():
+        for interface, addresses in network_data.items():
+            # Verifica se addresses é uma lista
+            if not isinstance(addresses, list):
+                continue
 
-        for addr in addresses:
+            for addr in addresses:
+                # Verifica se addr é um dicionário
+                if not isinstance(addr, dict):
+                    continue
 
-            family = addr["family"]
+                family = addr.get("family", "")
 
-            if family in AF_INET_VALUES:  
-                if ipv4_address == "N/A":
-                    ipv4_address = addr["address"]
+                if family in AF_INET_VALUES:  
+                    if ipv4_address == "N/A":
+                        ipv4_address = addr.get("address", "N/A")
 
-            elif family in AF_INET6_VALUES:
-                if ipv6_address == "N/A":
-                    ipv6_address = addr["address"]
+                elif family in AF_INET6_VALUES:
+                    if ipv6_address == "N/A":
+                        ipv6_address = addr.get("address", "N/A")
 
-        if ipv4_address != "N/A" and ipv6_address != "N/A":
-            break  
+            if ipv4_address != "N/A" and ipv6_address != "N/A":
+                break  
 
-    return {"ipv4": ipv4_address, "ipv6": ipv6_address}
+        return {"ipv4": ipv4_address, "ipv6": ipv6_address}
+
+    except requests.exceptions.RequestException as e:
+        return {"ipv4": "N/A", "ipv6": "N/A", "error": f"Erro ao acessar a API /network: {str(e)}"}
+    except ValueError as e:
+        return {"ipv4": "N/A", "ipv6": "N/A", "error": str(e)}
+    except Exception as e:
+        return {"ipv4": "N/A", "ipv6": "N/A", "error": f"Erro inesperado: {str(e)}"}
 
 # Bloco 2: Obtém o tempo de atividade (uptime)
 def get_uptime():

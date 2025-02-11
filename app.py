@@ -132,6 +132,8 @@ def generate_response():
             }}
         '''
 
+        print(prompt_second)
+
         response_second = first_agent(prompt_second)
 
         return jsonify(response_second)
