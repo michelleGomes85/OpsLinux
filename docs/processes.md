@@ -7,7 +7,15 @@
 
 ## Descrição
 
-Retorna uma lista de processos em execução no sistema, incluindo o PID, nome do processo, usuário, consumo de CPU e memória, tempo de execução e o comando que originou o processo.
+Retorna uma lista de processos em execução no sistema, com as seguintes informações:
+
+- PID do processo
+- Nome do processo
+- Usuário responsável pelo processo
+- Percentual de uso de CPU e memória
+- Tempo de criação do processo
+- Tempo de execução (em segundos)
+- Comando que originou o processo
 
 ## Exemplo de Resposta
 
@@ -36,6 +44,7 @@ Retorna uma lista de processos em execução no sistema, incluindo o PID, nome d
 ]
 ```
 
-## Uso esperado
+## Uso esperado:
 
-A rota é útil para monitorar o consumo de recursos dos processos em execução no sistema e identificar processos que consomem muita CPU ou memória.
+Esta rota é útil para monitorar o consumo de recursos dos processos em execução no sistema. 
+Ela pode ser usada para identificar processos que estão consumindo muita CPU ou memória e, assim, auxiliar na otimização do uso de recursos do sistema.

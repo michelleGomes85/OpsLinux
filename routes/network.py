@@ -2,55 +2,20 @@ from flask import Blueprint, jsonify
 import psutil
 import subprocess
 
+# Cria um Blueprint para as rotas relacionadas à rede
 network_bp = Blueprint('network', __name__)
-
-"""
-
-Aqui está a documentação para a rota /network:
-
-Endpoint: /network
-Método: GET
-
-Descrição: Retorna informações detalhadas sobre as interfaces de rede da máquina, incluindo nome da interface, 
-endereço IP, máscara de sub-rede e família de endereço.
-
-Exemplo de Resposta:
-
-'''json
-{
-    "eth0": [
-        {
-            "address": "192.168.0.10",
-            "netmask": "255.255.255.0",
-            "family": "AddressFamily.AF_INET"
-        },
-        {
-            "address": "00:1A:2B:3C:4D:5E",
-            "netmask": null,
-            "family": "AddressFamily.AF_PACKET"
-        }
-    ],
-    "lo": [
-        {
-            "address": "127.0.0.1",
-            "netmask": "255.0.0.0",
-            "family": "AddressFamily.AF_INET"
-        }
-    ]
-}
-'''
-
-Uso Esperado:
-
-Essa rota pode ser usada para monitorar a configuração de rede da máquina, identificar problemas de conectividade e 
-obter informações sobre os adaptadores de rede disponíveis.
-
-"""
 
 def get_default_gateway_and_netmask():
     """
     Obtém o gateway padrão e a máscara de sub-rede no Linux.
-    Retorna um dicionário com o gateway e a máscara, ou "N/A" se não encontrado.
+
+    Retorna:
+        dict: Um dicionário contendo o gateway padrão e a máscara de sub-rede.
+              Exemplo: {"gateway": "192.168.1.1", "netmask": "255.255.255.0"}
+              Se não for possível obter as informações, retorna "N/A" para ambos.
+
+    Exceções:
+        Captura e imprime qualquer exceção que ocorra durante a execução do comando 'ip route'.
     """
     try:
         # Executa o comando 'ip route' para obter as rotas
@@ -69,6 +34,87 @@ def get_default_gateway_and_netmask():
 
 @network_bp.route('/', methods=['GET'])
 def get_network_info():
+    """
+    Endpoint: /network
+    Método: GET
+
+    Descrição:
+        Retorna informações detalhadas sobre as interfaces de rede da máquina, incluindo:
+        - Nome da interface
+        - Endereço IP
+        - Máscara de sub-rede
+        - Família de endereço
+        - Estatísticas de rede (bytes enviados/recebidos, pacotes, erros, etc.)
+        - Status da interface (up/down, duplex, velocidade, MTU)
+        - Gateway padrão e máscara de sub-rede
+
+    Exemplo de Resposta:
+        ```json
+        {
+            "eth0": {
+                "addresses": [
+                    {
+                        "address": "192.168.0.10",
+                        "netmask": "255.255.255.0",
+                        "family": "AddressFamily.AF_INET"
+                    },
+                    {
+                        "address": "00:1A:2B:3C:4D:5E",
+                        "netmask": null,
+                        "family": "AddressFamily.AF_PACKET"
+                    }
+                ],
+                "stats": {
+                    "bytes_sent": 123456,
+                    "bytes_recv": 654321,
+                    "packets_sent": 100,
+                    "packets_recv": 200,
+                    "errors_in": 0,
+                    "errors_out": 0,
+                    "drops_in": 0,
+                    "drops_out": 0
+                },
+                "status": {
+                    "is_up": true,
+                    "duplex": 2,
+                    "speed": 1000,
+                    "mtu": 1500
+                }
+            },
+            "lo": {
+                "addresses": [
+                    {
+                        "address": "127.0.0.1",
+                        "netmask": "255.0.0.0",
+                        "family": "AddressFamily.AF_INET"
+                    }
+                ],
+                "stats": {
+                    "bytes_sent": 0,
+                    "bytes_recv": 0,
+                    "packets_sent": 0,
+                    "packets_recv": 0,
+                    "errors_in": 0,
+                    "errors_out": 0,
+                    "drops_in": 0,
+                    "drops_out": 0
+                },
+                "status": {
+                    "is_up": true,
+                    "duplex": 0,
+                    "speed": 0,
+                    "mtu": 65536
+                }
+            },
+            "default_gateway": "192.168.1.1",
+            "default_netmask": "255.255.255.0"
+        }
+        ```
+
+    Uso Esperado:
+        Essa rota pode ser usada para monitorar a configuração de rede da máquina, identificar problemas de conectividade e
+        obter informações sobre os adaptadores de rede disponíveis.
+    """
     # Informações de endereços das interfaces
     interfaces = psutil.net_if_addrs()
     result = {}

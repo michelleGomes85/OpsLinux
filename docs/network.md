@@ -7,16 +7,28 @@
 ## Descrição
 
 Retorna informações detalhadas sobre as interfaces de rede da máquina, incluindo:
+
 - Nome da interface.
 - Endereços IP (IPv4 e IPv6) e endereço MAC.
 - Máscara de sub-rede e família de endereço.
-- Estatísticas de rede (bytes e pacotes enviados/recebidos, erros, drops).
-- Status da interface (up/down, velocidade, duplex, MTU).
+- Estatísticas de rede 
+    - Bytes enviados e recebidos
+    - Pacotes enviados e recebidos.
+    - Erros de entrada e saída.
+    - Pacotes descartados (drops) de entrada e saída.
+
+- Status da interface
+    - Se está ativa (`is_up`).
+    - Modo de operação (`duplex`).
+    - Velocidade da interface (`em Mbps`).
+    - MTU (Maximum Transmission Unit).
+
+Além disso, a resposta inclui o gateway padrão e a máscara de sub-rede da rede.
 
 ## Exemplo de Resposta:
 
 ```json
-{
+ {
     "eth0": {
         "addresses": [
             {
@@ -26,7 +38,7 @@ Retorna informações detalhadas sobre as interfaces de rede da máquina, inclui
             },
             {
                 "address": "00:1A:2B:3C:4D:5E",
-                "netmask": null,
+                "netmask": "ffff:ffff:ffff:ffff::",
                 "family": "AddressFamily.AF_PACKET"
             }
         ],
@@ -71,12 +83,14 @@ Retorna informações detalhadas sobre as interfaces de rede da máquina, inclui
             "speed": 0,
             "mtu": 65536
         }
-    }
+    },
+    "default_gateway": "192.168.1.1",
+    "default_netmask": "255.255.255.0"
 }
 ```
 
 ## Uso Esperado:
-- Adicione tratamento de erros para garantir que a API funcione corretamente em sistemas onde algumas informações não estão disponíveis.
-- Se necessário, você pode adicionar mais detalhes, como informações de roteamento ou conexões ativas, dependendo do seu caso de uso.
 
-Essas melhorias tornarão a rota `/network` mais completa e útil para monitoramento e diagnóstico de rede.
+- **Monitoramento de rede:** Verificar o status e o desempenho das interfaces de rede.
+- **Diagnóstico de problemas:** Identificar erros, pacotes descartados ou interfaces inativas.
+- **Configuração de rede:** Obter informações detalhadas sobre endereços IP, máscaras de sub-rede e gateway padrão.

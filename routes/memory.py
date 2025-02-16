@@ -10,8 +10,8 @@ Método: GET
 
 Descrição: Retorna informações detalhadas sobre o uso de memória RAM e memória swap, incluindo a quantidade total, usada, livre e disponível de memória, bem como a porcentagem de uso.
 
-Exemplo de Resposta
-json
+Exemplo de Resposta:
+
 {
     "total_memory": 16777216000,
     "available_memory": 9876543210,
@@ -28,19 +28,22 @@ Uso esperado:
 
 Ideal para monitorar o uso de memória no sistema e detectar quando a memória está próxima de ser completamente utilizada, o que pode afetar o desempenho.
 """
+
 @memory_bp.route('/', methods=['GET'])
 def get_memory_info():
-    memory = psutil.virtual_memory()
-    swap = psutil.swap_memory()
+    
+    # Obtém informações de memória
+    memory = psutil.virtual_memory() if hasattr(psutil, "virtual_memory") else None
+    swap = psutil.swap_memory() if hasattr(psutil, "swap_memory") else None
 
     return jsonify({
-        "total_memory": memory.total,
-        "available_memory": memory.available,
-        "used_memory": memory.used,
-        "free_memory": memory.free,
-        "memory_percent": memory.percent,
-        "swap_total": swap.total,
-        "swap_used": swap.used,
-        "swap_free": swap.free,
-        "swap_percent": swap.percent
+        "total_memory": memory.total if memory else None,
+        "available_memory": memory.available if memory else None,
+        "used_memory": memory.used if memory else None,
+        "free_memory": memory.free if memory else None,
+        "memory_percent": memory.percent if memory else None,
+        "swap_total": swap.total if swap else None,
+        "swap_used": swap.used if swap else None,
+        "swap_free": swap.free if swap else None,
+        "swap_percent": swap.percent if swap else None
     })

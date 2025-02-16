@@ -6,7 +6,9 @@
 
 ## Descrição
 
-Retorna o tempo de atividade do sistema em segundos, minutos, horas e dias, além de uma representação formatada e a data/hora de inicialização.
+Retorna o tempo de atividade do sistema Linux em segundos, minutos, horas e dias. 
+Utiliza o arquivo `/proc/uptime` para obter o tempo de atividade do sistema desde o último boot. 
+Além disso, fornece a data e hora de inicialização do sistema e uma indicação se o sistema foi recentemente reiniciado (menos de 1 minuto).
 
 ## Exemplo de Resposta
 
@@ -17,13 +19,12 @@ Retorna o tempo de atividade do sistema em segundos, minutos, horas e dias, alé
     "uptime_hours": 34.29,
     "uptime_days": 1.43,
     "uptime_formatted": "1 day, 10:17:36",
-    "boot_time": "2023-10-01 12:34:56",
+    "boot_time": "2025-02-15 10:30:00",
     "recently_rebooted": false
 }
 ```
 
 ## Uso Esperado:
-- Adicione tratamento de erros para garantir que a API funcione corretamente em sistemas onde o arquivo `/proc/uptime` não está disponível.
-- Se necessário, você pode adicionar mais detalhes, como o tempo de atividade máximo já registrado ou comparações com tempos de atividade anteriores.
 
-Essas melhorias tornarão a rota `/uptime` mais informativa e útil para monitoramento e diagnóstico do sistema.
+Essa rota pode ser usada para monitorar o tempo de atividade do sistema Linux. 
+É útil para obter informações sobre a durabilidade do sistema em execução e saber quando ele foi reiniciado pela última vez.
