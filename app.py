@@ -1,14 +1,9 @@
 import os
-import markdown
 import requests
 import json
 
-from flask import Flask
-from flask import Flask, send_from_directory
+from flask import Flask, request, jsonify, render_template
 from datetime import datetime
-from flask import request
-from flask import Flask, render_template, abort
-from flask import jsonify
 
 from routes.cpu import cpu_bp
 from routes.disk import disk_bp
@@ -17,6 +12,7 @@ from routes.network import network_bp
 from routes.processes import processes_bp
 from routes.uptime import uptime_bp
 from routes.system_info import system_info_bp
+from routes.documentation import documentation_bp  # Importe o novo Blueprint
 
 from utils.utils import get_documentation
 from services.ai_service import first_agent
@@ -24,19 +20,6 @@ from services.ai_service import first_agent
 API_BASE_URL = "http://localhost:5002{endpoint}"
 
 app = Flask(__name__)
-
-PROJECT_INFO = {
-    
-    "name": "OpsLinux",
-    "version": "0.0.4",
-    "authors": [
-        {"name": "Gabriel Barbosa", "github": "https://github.com/GabrielBarbosaAfo"},
-        {"name": "Michelle Gomes", "github": "https://github.com/michelleGomes85"}
-    ],
-
-    "last_modified": datetime.now().strftime("%d/%m/%Y"),
-    "gitrepo": "https://github.com/michelleGomes85/OpsLinux",
-}
 
 # Registro das rotas
 app.register_blueprint(cpu_bp, url_prefix='/cpu')
@@ -46,25 +29,7 @@ app.register_blueprint(network_bp, url_prefix='/network')
 app.register_blueprint(processes_bp, url_prefix='/processes')
 app.register_blueprint(uptime_bp, url_prefix='/uptime')
 app.register_blueprint(system_info_bp, url_prefix='/system-info')
-
-# Rota principal da documentação
-@app.route('/doc')
-def documentation():
-
-    doc_files = sorted([f for f in os.listdir('docs') if f.endswith('.md')])
-
-    return render_template('documentation.html', project=PROJECT_INFO, doc_files=doc_files)
-
-# Rota para exibir um arquivo Markdown específico (para AJAX)
-@app.route('/doc/<filename>')
-def show_doc(filename):
-    
-    filepath = os.path.join('docs', filename)
-    
-    with open(filepath, 'r', encoding='utf-8') as file:
-        content = file.read()
-    
-    return content
+app.register_blueprint(documentation_bp)  # Registre o Blueprint da documentação
 
 @app.route('/')
 def index():
@@ -154,8 +119,5 @@ def fetch_system_info(endpoint):
         print(f"Erro ao buscar dados: {e}")
         return None
         
-
-
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5002)
-

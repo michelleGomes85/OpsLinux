@@ -161,4 +161,17 @@ code {
         border-right: 0;
         border-top: 2px solid #A3D5FF;
     }
+
+    .card {
+        margin-left: 0;
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+        max-width: 100%;
+    }
+
+    .card .card-content {
+        padding-bottom: 100px;
+        width: 100%; /* Garante que o conteúdo ocupe 100% da largura disponível */
+        box-sizing: border-box; /* Inclui padding na largura total */
+    }
 }
