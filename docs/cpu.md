@@ -5,7 +5,7 @@
 **Endpoint:** `/cpu`  
 **Method:** `GET`
 
-## Descrição:
+## Descrição
 
 Retorna informações detalhadas sobre o processador do sistema, incluindo:
 

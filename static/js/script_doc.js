@@ -1,7 +1,8 @@
+
 function loadDoc(filename) {
-  
-    // Remove o destaque de todos os links
-  document.querySelectorAll(".endpointsDoc a, .sidenav a").forEach((link) => {
+
+  // Remove o destaque de todos os links
+  document.querySelectorAll(".endpointsDoc a").forEach((link) => {
     link.classList.remove("active");
   });
 
@@ -10,28 +11,30 @@ function loadDoc(filename) {
     `link-${filename.replace(".md", "")}`
   );
 
-  const activeLinkMobile = document.getElementById(
-    `link-${filename.replace(".md", "")}-mobile`
-  );
-
   if (activeLink) activeLink.classList.add("active");
-  if (activeLinkMobile) activeLinkMobile.classList.add("active");
 
-  if (filename == 'inicio')
-    return;
+  if (filename == 'inicio') return;
 
   // Faz a requisição para carregar o conteúdo do documento
   fetch("/doc/" + filename)
+
     .then((response) => {
       if (!response.ok) {
         throw new Error("Document not found");
       }
       return response.text();
     })
+    
     .then((data) => {
-      document.getElementById("doc-content").innerHTML = data;
-      hljs.highlightAll(); // Destaca o código, se houver
+
+      // Renderiza o Markdown e escapa o HTML
+      const renderedContent = marked.parse(data);
+      document.getElementById("doc-content").innerHTML = renderedContent;
+      
+      // Aplica o highlight.js ao código gerado
+      hljs.highlightAll();
     })
+
     .catch((error) => {
       document.getElementById("doc-content").innerHTML =
         "<p class='center-align'>Document not found.</p>";

@@ -1,0 +1,113 @@
+.modal {
+    background-color: rgba(0, 0, 0, 0.8); 
+    height: 100%;
+}
+
+.modal-content {
+    border: 1px solid #47afb1;
+    border-radius: 10px;
+    background-color: #121212;
+    padding: 24px 35px !important;
+    max-width: 600px;
+    margin: 0 auto; 
+    margin-top: 20vh;
+}
+
+.modal-header  {
+    padding-left: 0;
+    padding-bottom: 20px;
+}
+
+.modal-body {
+    padding-left: 0;
+    padding-bottom: 5px;
+    padding-top: 20px;
+}
+
+.modal-footer {
+    border-top: 1px solid #47afb1;
+    background-color: transparent !important;
+    padding: 10px 6px !important;
+}
+
+.border-success {
+    border-color: #47afb1 !important;
+}
+
+.fixed-action-btn {
+    right: 50px;
+    bottom: 50px;
+}
+
+.link-info {
+    color: #47afb1 !important;
+}
+
+.icon-link {
+    color: #cdd0d5 !important;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.icon-link:hover {
+    color: #20c997 !important;
+}
+
+.icon-link i {
+    font-size: 3rem;
+}
+
+.input-field textarea {
+    height: 150px !important;
+    color: #fff !important;
+    border: 1px solid #47afb1 !important;
+    border-radius: 5px;
+    padding: 20px !important;
+    background-color: #000!important;
+}
+
+.input-field textarea:focus {
+    border-color: #215341 !important;
+    box-shadow: 0 0 5px rgba(40, 167, 69, 0.5) !important;
+}
+
+.btn, .btn-large, .btn-small {
+    background-color: #2a736f !important;
+    border: 1px solid #47afb1 !important;
+    border-radius: 20px;
+}
+
+.btn-large i.right {
+    color: #fff;
+}
+
+.btn:hover, .btn-large:hover, .btn-small:hover {
+    background-color: #47afb1 !important;
+    color: #000;
+}
+
+.loading-effect {
+    width: 100%;
+    height: 4px;
+    background-color: #121212;
+    position: relative;
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+.loading-bar {
+    width: 100%;
+    height: 100%;
+    background-color: #28a745;
+    position: absolute;
+    animation: loading 2s linear infinite;
+}
+
+@keyframes loading {    
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}

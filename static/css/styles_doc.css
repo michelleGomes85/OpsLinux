@@ -1,0 +1,164 @@
+
+.doc-link {
+    border-right: 2px solid #A3D5FF;
+}
+
+.doc-link i {
+    color: #A3D5FF;
+}
+
+.second-menu {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: auto;
+}
+
+.second-menu ul li a {
+    color: #fff !important;
+    font-size: 1.1rem;
+}
+
+.endpointsDoc li a.active {
+    color: #20B2AA !important;
+    font-weight: bold !important;
+}
+
+.sidenav li a.active {
+    color: #20B2AA !important; 
+    font-weight: bold !important;
+}
+
+.card {
+    border: none !important;
+    background-color: transparent;
+    color: #fff;
+    display: flex;
+    padding: 10px;
+    font-size: 1.1rem;
+    line-height: 2rem;
+    margin-left: 80px;
+}
+
+.card:hover {
+    transform: none !important;
+}
+
+.card::-webkit-scrollbar {
+    width: 5px; 
+}
+
+.card::-webkit-scrollbar-thumb {
+    background-color: #b0b0b0; 
+    border-radius: 10px; 
+}
+
+.card-content {
+    padding: 20px; 
+    max-width: 850px; 
+    margin: 0 auto;   
+    padding-bottom: 50px;
+    width: fit-content;
+}
+
+.content-text span {
+    color: #20B2AA;
+}
+
+.content-text h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+} 
+
+.content-text p {
+    margin-bottom: 20px !important;
+    font-size: 1.1rem;
+    line-height: 30px;
+}
+
+.built-with {
+    margin-bottom: 25px !important;
+}
+
+.technologies {
+    margin-top: 10px;
+}
+
+.technologies i:first-child {
+    color: #3776AB;
+    font-size: 4rem;
+    margin-right: 50px;
+}
+
+.technologies i:last-child {
+    color: #F05032;
+    font-size: 4rem;
+}
+
+.tech-labels span {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #fff;
+}
+
+.tech-labels span:first-child {
+    margin-right: 50px;
+}
+
+.row {
+    width: 80%;
+}
+
+h1 {
+    font-size: 2em;
+    font-weight: bold;
+}
+
+h2 {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+pre code.hljs {
+    background-color: #151b23;
+}
+
+.hljs, 
+.hljs-punctuation, .hljs-tag {
+    color: #fff !important;
+}
+
+.hljs-deletion, .hljs-number, .hljs-quote, .hljs-selector-class, .hljs-selector-id, .hljs-string, .hljs-template-tag, .hljs-type,
+.blue-text.text-lighten-2 {
+    color: #20B2AA !important;
+}
+
+hr {
+    margin: 30px 0 !important;
+}
+
+#slide-out {
+    transition: transform 0.3s ease !important;
+}
+
+code {
+    color: #1dfcfe;
+}
+
+.card ul {
+    margin-left: 2rem;
+}
+
+
+.card ul li {
+    list-style-type: circle;
+}
+
+@media (max-width: 768px) {
+    
+    .doc-link {
+        border-right: 0;
+        border-top: 2px solid #A3D5FF;
+    }
+}

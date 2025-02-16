@@ -26,12 +26,14 @@ API_BASE_URL = "http://localhost:5002{endpoint}"
 app = Flask(__name__)
 
 PROJECT_INFO = {
+    
     "name": "OpsLinux",
-    "version": "0.0.2",
+    "version": "0.0.4",
     "authors": [
         {"name": "Gabriel Barbosa", "github": "https://github.com/GabrielBarbosaAfo"},
         {"name": "Michelle Gomes", "github": "https://github.com/michelleGomes85"}
     ],
+
     "last_modified": datetime.now().strftime("%d/%m/%Y"),
     "gitrepo": "https://github.com/michelleGomes85/OpsLinux",
 }
@@ -48,19 +50,21 @@ app.register_blueprint(system_info_bp, url_prefix='/system-info')
 # Rota principal da documentação
 @app.route('/doc')
 def documentation():
+
     doc_files = sorted([f for f in os.listdir('docs') if f.endswith('.md')])
+
     return render_template('documentation.html', project=PROJECT_INFO, doc_files=doc_files)
 
 # Rota para exibir um arquivo Markdown específico (para AJAX)
 @app.route('/doc/<filename>')
 def show_doc(filename):
+    
     filepath = os.path.join('docs', filename)
-    if not os.path.isfile(filepath):
-        abort(404)
+    
     with open(filepath, 'r', encoding='utf-8') as file:
         content = file.read()
-    html_content = markdown.markdown(content, extensions=['fenced_code', 'codehilite'])
-    return html_content
+    
+    return content
 
 @app.route('/')
 def index():
