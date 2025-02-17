@@ -14,6 +14,10 @@ O sistema oferece os seguintes endpoints:
 - **Uptime**: Tempo de atividade do sistema, incluindo segundos, minutos, horas e dias desde o último boot.
 - **System Info**: Informações consolidadas do sistema, incluindo endereço IP, tempo de atividade, uso de memória, disco e CPU.
 
+![image](https://github.com/user-attachments/assets/6d1f35ac-d8d8-4824-9139-c28f145ac2ff)
+
+![image](https://github.com/user-attachments/assets/b4457766-cb2c-46b1-aa5c-174f87282c2c)
+
 ## Como Usar
 
 ### Pré-requisitos
