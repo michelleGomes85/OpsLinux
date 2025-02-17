@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>OpsLinux - Dashboard</title>
+
+    <link rel="shortcut icon" href="/static/images/logo.png" type="image/x-icon">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Materialize CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+
+    <link rel="stylesheet" href="/static/css/styles_header.css">
+    <link rel="stylesheet" href="/static/css/styles_modal.css">
+    <link rel="stylesheet" href="/static/css/styles_dashboard.css">
+
+</head>
+
+<body>
+
+    <main>
+
+        <!-- Header -->
+        <header class="navbar">
+            <img src="/static/images/logo.png" class="logo" alt="Logo OpsLinux">
+            <span>OpsLinux</span>
+        </header>
+
+        <!-- Main Content -->
+        <section class="main-content">
+
+            <!-- Sidebar -->
+            <aside>
+                <span class="span-space"></span>
+                <nav class="sidebar">
+
+                    <a href="/" class="sidebar-item item-dash">
+                        <i class="bi bi-bar-chart"></i>
+                        <span class="tooltip-text">Dashboard</span>
+                    </a>
+                    
+                    <a href="/doc" class="sidebar-item doc-link">
+                        <i class="bi bi-file-earmark-text"></i>
+                        <span class="tooltip-text">Docs</span>
+                    </a>
+
+                    <a href="#" class="sidebar-item">
+                        <i class="bi bi-info-circle"></i>
+                        <span class="tooltip-text">Info</span>
+                    </a>
+                </nav>
+            </aside>
+
+            <article class="page_container_dash">
+
+                <div id="page-container">
+
+                    <div class="banner">
+                        <p class="subtitle">
+                            Monitore seu sistema em <span class="highlight">tempo real</span> com <span class="highlight">IA</span>.
+                            <br>
+                            Clique e faça <span class="highlight">perguntas</span> sobre o status completo.
+                        </p>
+                        <div id="open-modal-btn" class="button-section">
+                            <a href="#modal-question" class="waves-effect waves-light btn btn-question">
+                                <i class="material-icons left">help_outline</i>
+                                Faça uma pergunta
+                            </a>
+                        </div>
+                    </div><!--banner-->
+
+                    <div class="ip-time">
+                        <!-- IP Section -->
+                        <div class="ip-section" id="ip-section">
+                            <i class="fas fa-sync-alt" id="ip-toggle-icon"></i>
+                            <div class="ip-div">
+                                <div>
+                                    <p id="ip-display-ip-text">IPV4</p>
+                                </div>
+                                <div>
+                                    <p id="ip-display-ipv4">N/A</p>
+                                    <p id="ip-display-ipv6">N/A</p>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <!-- Uptime Section -->
+                        <div class="uptime-section">
+                            <div class="chart-container">
+                                <div class="donut" id="donut"></div>
+                            </div>
+                            <p id="uptime-display" data-uptime="0">Carregando...</p>
+                        </div>
+                    </div><!--ip-time-->
+
+                    <div class="graphics">
+
+                        <!-- Botões para alternar entre Memória, Disco e CPU -->
+                        <div class="links">
+                            
+                            <div class="link-graphic">
+                                <button data-position="top" class="btn btn-success tooltipped select" id="btnCPU" data-tooltip="Porcentagem Consumo de CPU, cada Núcleo">
+                                    <i class="material-icons">memory</i>
+                                </button>
+                            </div>
+    
+                            <div class="link-graphic">
+                                <button data-position="top" class="btn btn-success tooltipped" id="btnDisk" data-tooltip="Porcentagem Consumo de Disco">
+                                    <i class="material-icons">storage</i>
+                                </button>
+                            </div>
+
+                            <div class="link-graphic">
+                                <button data-position="top" class="btn btn-success tooltipped" id="btnMemory"  data-tooltip="Porcentagem Consumo de Memória">
+                                    <i class="material-icons">sd_card</i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div id="cpu-usage-chart">
+                            <div id="cpu-usage-pie-chart"></div>
+
+                            <div id="cpu-usage-bar-chart"></div>
+                        </div>
+
+                        <div id="disk-usage-chart" class="hidden">
+
+                            <div id="disk-usage-pie-chart"></div>
+
+                            <div id="disk-usage-bar-chart"></div>
+                        </div>
+
+                        <div id="memory-usage-chart" class="hidden">
+
+                            <div id="memory-usage-pie-chart"></div>
+
+                            <div id="memory-usage-bar-chart"></div>
+
+                        </div>
+                        
+                    </div><!--graphics-->     
+
+                </div><!--page-container-->
+            </article>
+        </section>
+
+    </main>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Materialize JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <!-- Plotly -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+    <script src="/static/js/script_materialize.js"></script>
+
+    <script src="/static/js/script_graphics.js"></script>
+    <script src="/static/js/script_dashboard_initial.js"></script>
+    <script src="/static/js/script_pagination_graphic.js"></script>
+</body>
+</html>

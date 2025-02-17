@@ -4,7 +4,7 @@
 }
 
 .modal-content {
-    border: 1px solid #47afb1;
+    border: 1px solid #A3D5FF;
     border-radius: 10px;
     background-color: #121212;
     padding: 24px 35px !important;
@@ -16,22 +16,28 @@
 .modal-header  {
     padding-left: 0;
     padding-bottom: 20px;
+    font-size: 1.8rem;
+}
+
+.modal-header .btn-close {
+    font-size: 1rem;
 }
 
 .modal-body {
     padding-left: 0;
     padding-bottom: 5px;
     padding-top: 20px;
+    font-size: 1.1rem;
 }
 
 .modal-footer {
-    border-top: 1px solid #47afb1;
+    border-top: 1px solid #A3D5FF   ;
     background-color: transparent !important;
     padding: 10px 6px !important;
 }
 
 .border-success {
-    border-color: #47afb1 !important;
+    border-color: #A3D5FF !important;
 }
 
 .fixed-action-btn {
@@ -40,7 +46,7 @@
 }
 
 .link-info {
-    color: #47afb1 !important;
+    color: #63b8ff!important
 }
 
 .icon-link {
@@ -82,7 +88,7 @@
 }
 
 .btn:hover, .btn-large:hover, .btn-small:hover {
-    background-color: #47afb1 !important;
+    background-color: #A3D5FF!important;
     color: #000;
 }
 

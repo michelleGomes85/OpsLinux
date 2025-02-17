@@ -1,9 +1,7 @@
-import os
 import requests
 import json
 
 from flask import Flask, request, jsonify, render_template
-from datetime import datetime
 
 from routes.cpu import cpu_bp
 from routes.disk import disk_bp
@@ -12,7 +10,7 @@ from routes.network import network_bp
 from routes.processes import processes_bp
 from routes.uptime import uptime_bp
 from routes.system_info import system_info_bp
-from routes.documentation import documentation_bp  # Importe o novo Blueprint
+from routes.documentation import documentation_bp
 
 from utils.utils import get_documentation
 from services.ai_service import first_agent
@@ -33,6 +31,10 @@ app.register_blueprint(documentation_bp)  # Registre o Blueprint da documenta√ß√
 
 @app.route('/')
 def index():
+    return render_template('dashboard.html')
+
+@app.route('/dash')
+def test():
     return render_template('index.html')
 
 @app.route('/generate-response', methods=['POST'])

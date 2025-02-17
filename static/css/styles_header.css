@@ -94,7 +94,7 @@ aside nav {
     background-color: #000;
     color: #fff;
     position: absolute;
-    left: 50px;
+    left: 80px;
     top: 5px;
     white-space: nowrap;
     border-radius: 5px;
@@ -155,7 +155,8 @@ nav {
     }
 
     .tooltip-text {
-        display: none;
+        left: 0px;
+        top: -60px;
     }
 
     .main {

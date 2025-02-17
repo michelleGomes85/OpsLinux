@@ -17,16 +17,16 @@
 
 .second-menu ul li a {
     color: #fff !important;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
 }
 
 .endpointsDoc li a.active {
-    color: #20B2AA !important;
+    color: #63b8ff !important;
     font-weight: bold !important;
 }
 
 .sidenav li a.active {
-    color: #20B2AA !important; 
+    color: #63b8ff!important; 
     font-weight: bold !important;
 }
 
@@ -36,7 +36,7 @@
     color: #fff;
     display: flex;
     padding: 10px;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     line-height: 2rem;
     margin-left: 80px;
 }
@@ -63,7 +63,7 @@
 }
 
 .content-text span {
-    color: #20B2AA;
+    color: #63b8ff;
 }
 
 .content-text h1 {
@@ -73,7 +73,7 @@
 
 .content-text p {
     margin-bottom: 20px !important;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     line-height: 30px;
 }
 

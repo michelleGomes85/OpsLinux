@@ -1,0 +1,264 @@
+
+.item-dash {
+    border-right: 2px solid #A3D5FF;
+}
+
+.item-dash i {
+    color: #A3D5FF;
+}
+
+.page_container_dash {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 95vw;
+    max-width: 1700px;
+}
+
+.content-result {
+    display: flex;
+    max-width: 1500px;
+    width: 90vw;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+    font-size: 1.2rem;
+}
+
+.banner {
+    margin-top: 50px;
+    width: 85%;
+    background-color: #051428;
+    border: 1px solid rgb(85, 105, 127);
+    padding: 50px;
+    border-radius: 10px;
+    height: 350px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.subtitle {
+    font-size: 2.5rem !important;
+    color: white;
+    margin-bottom: 40px;
+    font-weight: bold;
+    line-height: 3.5rem;
+}
+
+.subtitle .highlight {
+    font-size: 2.2rem !important;
+    color: #63b8ff;
+}
+
+.button-section {
+    display: flex;
+    justify-content: center;
+}
+
+.btn-question {
+    background-color: transparent !important;
+    border: 1px solid rgb(85, 105, 127) !important;
+}
+
+.btn-question:hover,
+.btn-question:focus {
+    background-color: rgb(85, 105, 127);
+}
+
+.btn, .btn-large, .btn-small, .btn-flat {
+    height: 50px;
+    line-height: 50px;
+}
+
+/* IP e Tempo */
+.ip-time {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    width: 920px;
+    margin-top: 50px;
+    font-size: 1.2rem;
+}
+
+.uptime-section,
+.ip-section {
+    border: 1px solid rgb(85 105 127);
+    border-radius: 5px;
+    position: relative;
+    padding: 50px;
+    width: 450px;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    background-color: rgb(5, 20, 40);
+}
+
+.ip-div {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+}
+
+#ip-display-ip-text {
+    display: block;
+    font-weight: bolder;
+    margin-bottom: 10px;
+    line-height: 1rem !important;
+}
+
+.uptime-section {
+    text-align: center;
+    align-items: center;
+}
+
+.uptime-section::before {
+    content: "Tempo de Atividade";
+    position: absolute;
+    top: -15px;
+    left: 20px;
+    background-color: #061e36;
+    padding: 0 20px;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.ip-section::before {
+    content: "Endereço IP";
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    background-color: #061e36;
+    padding: 0 20px;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.chart-container {
+    position: relative;
+    width: 200px;
+    height: 100px; 
+    overflow: hidden; 
+}
+
+.donut {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: conic-gradient(
+        #A3D5FF 0% 100%,
+        #0077cc 0% 0% 
+    );
+
+    mask: radial-gradient(circle, transparent 50%, black 51%);
+    -webkit-mask: radial-gradient(circle, transparent 50%, black 51%);
+    transition: background 0.5s linear;
+    transform: rotate(-90deg);
+}
+
+#ip-display-ipv6 {
+    display: none;
+}
+
+#ip-toggle-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    font-size: 15px;
+    border-radius: 10px;
+    background-color: #fff;
+    color: #fff;
+    border: 1px solid #A3D5FF;
+    cursor: pointer;
+    color: rgb(3, 122, 118);
+}
+
+#ip-toggle-icon:hover {
+    background-color: #A3D5FF;
+}
+
+.graphics {
+    padding-top: 50px;
+}
+
+.graphics .links {
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1px solid #dfdde0;
+    padding-bottom: 20px;
+    margin-bottom: 50px;
+}
+
+.graphics .links .link-graphic button {
+    background-color: transparent !important;
+    margin: 0 10px !important;
+}
+
+.graphics .links .link-graphic button:hover i {
+    color: #A3D5FF;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.graphics .links .link-graphic button.select {
+    background-color: #A3D5FF !important;
+    color: rgb(3, 122, 118);
+    border-color: #20B2AA;
+}
+
+.graphics .links .link-graphic button.select:hover {
+    background-color: transparent !important;
+    border-color: #20B2AA;
+}
+
+#cpu-usage-chart, #disk-usage-chart, #memory-usage-chart {
+    display: flex;
+    gap: 50px;    
+    padding-bottom: 100px;  
+}
+
+@media (max-width: 1000px) {
+
+    .ip-time {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #cpu-usage-chart, #disk-usage-chart, #memory-usage-chart {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+}
+
+@media (max-width: 768px) {
+    
+    .item-dash {
+        border-right: 0;
+        border-top: 2px solid #A3D5FF;
+    }
+
+    .banner {
+        width: 100%;
+    }
+
+    .ip-time {
+        flex-direction: column;
+        align-items: center;
+    }
+}
