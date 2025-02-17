@@ -1,4 +1,4 @@
-### OpsLinux
+# OpsLinux
 
 Este projeto é um sistema de monitoramento de recursos de um sistema Linux, desenvolvido em Python utilizando o framework Flask. Ele fornece uma API RESTful que permite monitorar diversos aspectos do sistema, como uso de CPU, memória, disco, rede, processos em execução e tempo de atividade (uptime).
 
@@ -31,11 +31,11 @@ O sistema oferece os seguintes endpoints:
    cd sistema-monitoramento
 
 
-# Instale as dependências:
+### Instale as dependências:
     pip install -r requirements.txt
 
-# Execute o servidor Flask:
+### Execute o servidor Flask:
     python app.py
 
-# Acesse a API no navegador
+### Acesse a API no navegador
     http://localhost:5002/
