@@ -49,18 +49,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
                 alert("Pergunta enviada com sucesso: " + question);
 
-                // 📌 Exibir resposta formatada no console
-                console.groupCollapsed("🔍 Resposta Recebida:");
-                console.log("❓ Pergunta:", data.question);
-                console.log("💬 Resposta:", data.response);
-
-                // Se houver visualização no formato de tabela
-                if (data.visual && data.visual.type === "table") {
-                    console.log("📊 Tabela de Dados:");
-                    console.table(data.visual.rows);
-                }
-
-                console.groupEnd();
+                displayResponse(data)
             } catch (error) {
                 console.error('Erro:', error);
             }
