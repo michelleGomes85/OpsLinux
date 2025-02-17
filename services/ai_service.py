@@ -10,10 +10,12 @@ load_dotenv()
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 
 def configure_model():
+
     genai.configure(api_key=GOOGLE_API_KEY)
+    
     return genai.GenerativeModel(model_name="gemini-1.5-flash")
 
-def first_agent(prompt):
+def ask_ai(prompt):
 
     model = configure_model()
 

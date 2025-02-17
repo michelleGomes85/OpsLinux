@@ -1,28 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
 
-    var modal = document.querySelectorAll('.modal');
-
-    M.Modal.init(modal, {
-        opacity: 0.8,
-        inDuration: 300,
-        outDuration: 200,
-        startingTop: '10%',
-        endingTop: '10%',
-        onOpenEnd: function() {
-            var textarea = document.getElementById('question');
-            textarea.value = ''; 
-            textarea.focus(); 
-        }
-    });
-
-    var sidenav = document.querySelectorAll('.sidenav');
-    M.Sidenav.init(sidenav);
-
-    var tooltips = document.querySelectorAll('.tooltipped');
-    M.Tooltip.init(tooltips, {
-        position: 'bottom'
-    });
-
     document.querySelectorAll('.icon-link').forEach(function(link) {
         link.addEventListener('click', function() {
             var question = this.getAttribute('data-question');
@@ -53,7 +30,9 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         
             try {
+
                 loadingEffect.style.display = 'block';
+
                 const response = await fetch('/generate-response', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -69,11 +48,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 loadingEffect.style.display = 'none';
     
                 alert("Pergunta enviada com sucesso: " + question);
-    
-                M.Modal.getInstance(document.getElementById('modal-question')).close();
-        
-                console.log(data); 
-        
+
+                // 📌 Exibir resposta formatada no console
+                console.groupCollapsed("🔍 Resposta Recebida:");
+                console.log("❓ Pergunta:", data.question);
+                console.log("💬 Resposta:", data.response);
+
+                // Se houver visualização no formato de tabela
+                if (data.visual && data.visual.type === "table") {
+                    console.log("📊 Tabela de Dados:");
+                    console.table(data.visual.rows);
+                }
+
+                console.groupEnd();
             } catch (error) {
                 console.error('Erro:', error);
             }
@@ -96,7 +83,7 @@ if (!isSpeechRecognitionSupported) {
     const microphone = document.getElementById('microphone');
     const microphoneContainer = document.getElementById('microphone-container');
 
-    // Variable to track if the microphone is active
+    // Variavel que ver o microfone está ativo
     let isListening = false;
 
     // Função começar a escutar
@@ -149,5 +136,4 @@ if (!isSpeechRecognitionSupported) {
             stopListening();
         };
     }
-
 }

@@ -17,12 +17,13 @@ PROJECT_INFO = {
 
 @documentation_bp.route('/doc')
 def documentation():
-    doc_files = sorted([f for f in os.listdir('docs') if f.endswith('.md')])
+    doc_files = sorted([f for f in os.listdir('api/docs') if f.endswith('.md')])
     return render_template('documentation.html', project=PROJECT_INFO, doc_files=doc_files)
 
 @documentation_bp.route('/doc/<filename>')
 def show_doc(filename):
-    filepath = os.path.join('docs', filename)
+    filepath = os.path.join('api/docs', filename)
     with open(filepath, 'r', encoding='utf-8') as file:
         content = file.read()
+        
     return content

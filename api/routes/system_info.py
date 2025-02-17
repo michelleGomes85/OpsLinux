@@ -1,19 +1,23 @@
 from flask import Blueprint, jsonify
 import requests
-import psutil
+
+from config.settings import get_api_url
 
 # Cria o Blueprint para a rota /system-info
 system_info_bp = Blueprint('system_info', __name__)
 
-API_BASE_URL = "http://localhost:5002"
 
+# Bloco 1: Endereços IPV4 e IPV6 da máquina
 def get_network_info():
     
     """
+
     Obtém os endereços IPv4 e IPv6 da máquina.
     Retorna um dicionário com os endereços ou "N/A" se não encontrados.
+
     """
-    network_response = requests.get(f"{API_BASE_URL}/network")
+
+    network_response = requests.get(get_api_url("network"))
     network_data = network_response.json()
     ipv4_address = "N/A"
     ipv6_address = "N/A"
@@ -39,18 +43,19 @@ def get_network_info():
 
     # Itera sobre as interfaces de rede
     for interface, data in network_data.items():
-        # Verifica se a interface tem o campo "addresses"
+
         if "addresses" in data:
             addresses = data["addresses"]
-            # Itera sobre os endereços da interface
+
             for addr in addresses:
+
                 family = addr["family"]
+
                 if family in AF_INET_VALUES and ipv4_address == "N/A":
                     ipv4_address = addr["address"]
                 elif family in AF_INET6_VALUES and ipv6_address == "N/A":
                     ipv6_address = addr["address"]
 
-        # Se ambos os endereços foram encontrados, interrompe o loop
         if ipv4_address != "N/A" and ipv6_address != "N/A":
             break
 
@@ -64,7 +69,7 @@ def get_uptime():
     Retorna um dicionário com os valores.
     """
 
-    uptime_response = requests.get(f"{API_BASE_URL}/uptime")
+    uptime_response = requests.get(get_api_url("uptime"))
 
     uptime_data = uptime_response.json()
     return {
@@ -81,7 +86,7 @@ def get_memory_usage():
     Retorna um dicionário com a memória usada, livre, total e porcentagens.
     """
 
-    memory_response = requests.get(f"{API_BASE_URL}/memory")
+    memory_response = requests.get(get_api_url("memory"))
     memory_data = memory_response.json()
     return {
         "used_gb": round(memory_data.get("used_memory", 0) / (1024 ** 3), 2),  # Converte bytes para GB
@@ -99,7 +104,7 @@ def get_disk_usage():
     Retorna um dicionário com o espaço usado, livre, total e porcentagens.
     """
 
-    disk_response = requests.get(f"{API_BASE_URL}/disk")
+    disk_response = requests.get(get_api_url("disk"))
     disk_data = disk_response.json()
     return {
         "used_gb": disk_data.get("used_space_gb", 0),
@@ -119,7 +124,7 @@ def get_cpu_usage():
 
     """
 
-    cpu_response = requests.get(f"{API_BASE_URL}/cpu")
+    cpu_response = requests.get(get_api_url("cpu"))
     cpu_data = cpu_response.json()
     cpu_usage_per_core = cpu_data.get("cpu_usage_per_core", [])
 
@@ -162,11 +167,13 @@ Exemplo de Resposta:
         "ipv4": "172.24.34.239",
         "ipv6": "fe80::215:5dff:feae:5070%eth0"
     },
+    
     "uptime": {
         "seconds": 123456.78,
         "minutes": 2057.61,
         "hours": 34.29
     },
+
     "memory_usage": {
         "used_gb": 5.43,
         "free_gb": 11.33,
@@ -174,6 +181,7 @@ Exemplo de Resposta:
         "used_percent": 32.4,
         "free_percent": 67.6
     },
+
     "disk_usage": {
         "used_gb": 250.34,
         "free_gb": 249.77,
@@ -181,6 +189,7 @@ Exemplo de Resposta:
         "used_percent": 50.1,
         "free_percent": 49.9
     },
+
     "cpu_usage_per_core": [15.0, 20.5, 10.0, 30.0, 25.5, 40.0, 18.0, 12.0]
 }
 '''
@@ -195,7 +204,6 @@ O usuário não precisa calcular nada, pois os dados já vêm prontos para uso.
 @system_info_bp.route('/', methods=['GET'])
 def get_system_info():
 
-    
     try:
         return jsonify(consolidate_system_info())
 

@@ -155,6 +155,17 @@ code {
     list-style-type: circle;
 }
 
+.fixed-action-btn a {
+    background-color: #144a77 !important;
+    width: 65px !important;
+    height: 65px !important;
+}
+
+.btn-floating.btn-large i {
+    line-height: 65px;
+    color: #fff;
+}
+
 @media (max-width: 768px) {
     
     .doc-link {
@@ -171,7 +182,7 @@ code {
 
     .card .card-content {
         padding-bottom: 100px;
-        width: 100%; /* Garante que o conteúdo ocupe 100% da largura disponível */
-        box-sizing: border-box; /* Inclui padding na largura total */
+        width: 100%; 
+        box-sizing: border-box; 
     }
 }

@@ -6,6 +6,7 @@ import subprocess
 network_bp = Blueprint('network', __name__)
 
 def get_default_gateway_and_netmask():
+
     """
     Obtém o gateway padrão e a máscara de sub-rede no Linux.
 
@@ -13,27 +14,31 @@ def get_default_gateway_and_netmask():
         dict: Um dicionário contendo o gateway padrão e a máscara de sub-rede.
               Exemplo: {"gateway": "192.168.1.1", "netmask": "255.255.255.0"}
               Se não for possível obter as informações, retorna "N/A" para ambos.
-
-    Exceções:
-        Captura e imprime qualquer exceção que ocorra durante a execução do comando 'ip route'.
     """
+
     try:
         # Executa o comando 'ip route' para obter as rotas
         result = subprocess.run(['ip', 'route'], capture_output=True, text=True)
         for line in result.stdout.splitlines():
+
             if 'default' in line:
                 parts = line.split()
-                gateway = parts[2]  # O gateway é o terceiro campo
-                netmask = parts[7] if len(parts) > 7 else "N/A"  # A máscara é o oitavo campo (se existir)
+
+                 # O gateway é o terceiro campo
+                gateway = parts[2] 
+
+                # A máscara é o oitavo campo (se existir)
+                netmask = parts[7] if len(parts) > 7 else "N/A"  
                 return {"gateway": gateway, "netmask": netmask}
+            
     except Exception as e:
-        print(f"Erro ao obter o gateway e a máscara de sub-rede: {e}")
         return {"gateway": "N/A", "netmask": "N/A"}
 
     return {"gateway": "N/A", "netmask": "N/A"}
 
 @network_bp.route('/', methods=['GET'])
 def get_network_info():
+
     """
     Endpoint: /network
     Método: GET
@@ -112,9 +117,11 @@ def get_network_info():
         ```
 
     Uso Esperado:
+
         Essa rota pode ser usada para monitorar a configuração de rede da máquina, identificar problemas de conectividade e
         obter informações sobre os adaptadores de rede disponíveis.
     """
+
     # Informações de endereços das interfaces
     interfaces = psutil.net_if_addrs()
     result = {}
@@ -151,7 +158,7 @@ def get_network_info():
             result[interface]['status'] = {
                 'is_up': stats.isup,
                 'duplex': stats.duplex,
-                'speed': stats.speed,  # Velocidade em Mbps
+                'speed': stats.speed, 
                 'mtu': stats.mtu
             }
 

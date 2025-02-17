@@ -2,7 +2,7 @@ import os
 
 def get_documentation():
     
-    NAME_DIRECTORY = "docs"
+    NAME_DIRECTORY = "api/docs"
     EXTENTION_FILE = ".md"
 
     READ = "r"
