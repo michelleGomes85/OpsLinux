@@ -69,6 +69,7 @@
 .btn-question {
     background-color: transparent !important;
     border: 1px solid rgb(85, 105, 127) !important;
+    color: #fff;
 }
 
 .btn-question:hover,
@@ -207,8 +208,13 @@
     margin: 0 10px !important;
 }
 
-.graphics .links .link-graphic button:hover i {
+.graphics .links .link-graphic button i {
     color: #A3D5FF;
+}
+
+
+.graphics .links .link-graphic button:hover i {
+    color: rgb(3, 122, 118);
 }
 
 .hidden {
@@ -217,8 +223,11 @@
 
 .graphics .links .link-graphic button.select {
     background-color: #A3D5FF !important;
-    color: rgb(3, 122, 118);
     border-color: #20B2AA;
+}
+
+.graphics .links .link-graphic button.select i {
+    color: rgb(3, 122, 118) !important;
 }
 
 .graphics .links .link-graphic button.select:hover {

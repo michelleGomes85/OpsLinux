@@ -1,6 +1,8 @@
 .modal {
     background-color: rgba(0, 0, 0, 0.8); 
     height: 100%;
+    max-height: 100%;
+    width: 100%;
 }
 
 .modal-content {
@@ -45,7 +47,7 @@
     bottom: 50px;
 }
 
-.link-info {
+a.link-info {
     color: #63b8ff!important
 }
 
@@ -56,31 +58,41 @@
 }
 
 .icon-link:hover {
-    color: #20c997 !important;
+    color: #63b8ff !important;
 }
 
 .icon-link i {
     font-size: 3rem;
 }
 
+.text-success {
+    color: #fff !important;
+}
+
+.text-success:hover {
+    color: #63b8ff !important;
+}
+
 .input-field textarea {
     height: 150px !important;
     color: #fff !important;
-    border: 1px solid #47afb1 !important;
+    border: 1px solid #63b8ff !important;
     border-radius: 5px;
     padding: 20px !important;
     background-color: #000!important;
+    position: relative;
 }
 
 .input-field textarea:focus {
-    border-color: #215341 !important;
-    box-shadow: 0 0 5px rgba(40, 167, 69, 0.5) !important;
+    border-color: #63b8ff !important;
+    box-shadow: 0 0 5px rgba(213, 219, 253, 0.5) !important;
 }
 
 .btn, .btn-large, .btn-small {
-    background-color: #2a736f !important;
-    border: 1px solid #47afb1 !important;
+    background-color: #63b8ff !important;
+    border: 1px solid #63b8ff!important;
     border-radius: 20px;
+    color: #000;
 }
 
 .btn-large i.right {
@@ -104,7 +116,7 @@
 .loading-bar {
     width: 100%;
     height: 100%;
-    background-color: #28a745;
+    background-color: #63b8ff;
     position: absolute;
     animation: loading 2s linear infinite;
 }
@@ -116,4 +128,48 @@
     100% {
         transform: translateX(100%);
     }
+}
+
+#microphone-container {
+    padding: 20px 10px 10px;
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.microphone-icon i {
+    color: #fff !important;
+}
+
+.microphone-icon i:hover {
+    color: #63b8ff !important;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.2);
+        opacity: 0.7;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.pulsating-effect {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.3);
+    animation: pulse 1.5s infinite;
+    z-index: 0;
 }

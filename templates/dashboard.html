@@ -74,12 +74,14 @@
                             <br>
                             Clique e faça <span class="highlight">perguntas</span> sobre o status completo.
                         </p>
+
                         <div id="open-modal-btn" class="button-section">
-                            <a href="#modal-question" class="waves-effect waves-light btn btn-question">
+                            <a class="waves-effect waves-light btn btn-question-success btn-question" data-bs-toggle="modal" data-bs-target="#modal-question">
                                 <i class="material-icons left">help_outline</i>
                                 Faça uma pergunta
                             </a>
                         </div>
+
                     </div><!--banner-->
 
                     <div class="ip-time">
@@ -156,6 +158,63 @@
                 </div><!--page-container-->
             </article>
         </section>
+
+        <!-- Modal de Pergunta -->
+        <div class="modal fade" id="modal-question" tabindex="-1" aria-labelledby="infoModalLabel" aria-hidden="true">
+
+            <div class="modal-dialog">
+
+                <div class="modal-content bg-dark text-light">
+
+                    <!-- Ícones de Perguntas -->
+                    <div class="row text-questions mt-4">
+                        <div class="col-3">
+                            <a href="#!" class="icon-link tooltipped" data-question="Qual é o uso atual da CPU?" data-tooltip="Perguntar sobre CPU">
+                                <i class="material-icons large">memory</i>
+                            </a>
+                        </div>
+                        <div class="col-3">
+                            <a href="#!" class="icon-link tooltipped" data-question="Qual é o espaço livre no disco?" data-tooltip="Perguntar sobre Disco">
+                                <i class="material-icons large">storage</i>
+                            </a>
+                        </div>
+                        <div class="col-3">
+                            <a href="#!" class="icon-link tooltipped" data-question="Qual é o uso atual da memória?" data-tooltip="Perguntar sobre Memória">
+                                <i class="material-icons large">sd_card</i>
+                            </a>
+                        </div>
+                        <div class="col-3">
+                            <a href="#!" id="clear-question" class="icon-link tooltipped" data-tooltip="Limpar caixa de texto">
+                                <i class="material-icons large">delete</i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Caixa de Texto com Ícone de Microfone -->
+                    <div class="input-field mt-4">
+                        <textarea id="question" class="materialize-textarea bg-dark text-light" placeholder="Faça uma pergunta sobre o sistema..." style="height: 150px;"></textarea>
+                        
+                        <div id="microphone-container">
+                            <!-- Ícone de Microfone -->
+                            <span id="microphone" class="microphone-icon">
+                                <i class="material-icons">mic</i>
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Efeito de Carregamento -->
+                    <div id="loadingEffect" class="loading-effect" style="display: none;">
+                        <div class="loading-bar"></div>
+                    </div>
+
+                    <div class="modal-footer border-success">
+                        <a href="#!" class="modal-close waves-effect waves-green btn-flat text-success" data-bs-dismiss="modal">Fechar</a>
+                        <a href="#!" id="send-question" class="waves-effect waves-green btn-flat text-success">Enviar</a>
+                    </div>
+                </div>
+
+            </div>
+        </div><!--modal-->
 
     </main>
 
