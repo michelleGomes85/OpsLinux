@@ -33,3 +33,19 @@ btn_cpu.addEventListener('click', function() {
     btn_disk.classList.remove('select');
     btn_cpu.classList.add('select');
 });
+
+const btns = document.querySelectorAll(".btn-success");
+
+btns.forEach(btn => {
+    btn.addEventListener("click", function () {
+        
+        document.querySelectorAll(".tip-text").forEach(span => span.classList.add("hidden"));
+
+        btns.forEach(b => b.classList.remove("select"));
+
+        this.classList.add("select");
+
+        this.nextElementSibling.classList.remove("hidden");
+    });
+});
+

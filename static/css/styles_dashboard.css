@@ -241,6 +241,26 @@
     padding-bottom: 100px;  
 }
 
+.link-graphic {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.tip-text {
+    font-weight: bold;
+    color: #fff;
+    padding: 4px 8px;
+    border-radius: 5px;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+.hidden {
+    display: none;
+}
+
+
 @media (max-width: 1500px) {
 
     #cpu-usage-chart, #disk-usage-chart, #memory-usage-chart {
