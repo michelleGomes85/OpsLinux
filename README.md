@@ -24,7 +24,7 @@ O **docBot** é responsável por interpretar as perguntas do usuário em linguag
 ### 2. Agente SysBot
 O **SysBot** pega os dados retornados pela API e os apresenta ao usuário de forma clara e compreensível. Ele responde em linguagem natural e também usa o Mermaid.js para gerar diagramas visuais baseados nas informações do sistema, como gráficos de uso de CPU ou memória, tornando as respostas mais intuitivas e fáceis de entender.
 
-# Exemplo de Interação
+## Exemplo de Interação
 **Usuário**: "Qual é o uso da CPU?"
 **docBot**: Detecta que a consulta é sobre o uso de CPU e chama o endpoint correspondente.
 **SysBot**: Recebe os dados da API, traduz para uma resposta em linguagem natural, como: "O núcleo 1 está usando 45% da capacidade, o núcleo 2 está com 30% de uso, e o núcleo 3 está com 60%." E gera um gráfico visual do uso de cada núcleo utilizando Mermaid.js.
