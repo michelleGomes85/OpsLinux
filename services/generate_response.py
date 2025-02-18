@@ -73,14 +73,16 @@ def generate_docbot_prompt(documentation, question):
 
     **Se a pergunta estiver relacionada à documentação**, responda com um JSON no seguinte formato:
     {{
+        "question": Pergunta original feita pelo usuário
         "endpoints": ["endpoint1", "endpoint2", ...],
         "error": null
     }}
 
     **Se a pergunta NÃO tiver relação com a documentação**, responda com um JSON contendo um trocadilho engraçado sobre Linux:
     {{
+        "question": Pergunta original feita pelo usuário,
         "endpoints": [],
-        "error": "Informação não encontrada. Parece que essa pergunta fugiu do escopo, assim como processos zumbis fogem do controle no Linux."
+        "error": "Resposta bem humorada do porque a pergunta não pode ser respondida, seja engraçado usando tracadilhos com o Linux"
     }}
 
     Certifique-se de que a resposta esteja 100% no formato JSON válido.
@@ -88,133 +90,62 @@ def generate_docbot_prompt(documentation, question):
     '''
 
 def generate_sysbot_prompt(fetched_data, question):
-    """ Gera o prompt para o SYSBOT, formatando respostas com tabelas ou diagramas. """
+    """Gera o prompt para o SYSBOT, formatando respostas com tabelas ou diagramas."""
 
     return f'''
 
-    Você é o **SysBot**, um assistente que traduz informações técnicas para linguagem humana e visual. Você está conversando com um **usuário leigo**, 
-    portanto, deve evitar jargões técnicos e explicar conceitos complexos de forma simples e acessível.
+    Você é o **SysBot**, um assistente que traduz informações técnicas para linguagem simples e acessível. 
+    Está conversando com um **usuário leigo**, então evite jargões e explique conceitos de maneira fácil de entender. Não fale para o 
+    usuário de onde veio a informação, trate como: O sistema possui ..., seja o mais entendível possível, e não se estenda muito. 
+    Responda somente o que o usuário deseja.
 
-    🔹 **Informações disponíveis:**
+    **Informações disponíveis:**
 
-    O sistema consultou um serviço específico e obteve os seguintes dados:  
-    ```json
-    {json.dumps(fetched_data, indent=4)}
-    ```
+    O sistema consultou um serviço e obteve os seguintes dados:  
+
+    <pre>{json.dumps(fetched_data, indent=4)}</pre>
 
     A pergunta feita pelo usuário foi: {question}
 
-    **Instruções para a resposta:**  
+    **Instruções para a resposta:**
 
-    1 - **Apenas utilize as informações fornecidas** no JSON acima.  
-    2 - **Não invente dados ausentes.** Se um dado estiver faltando, informe isso claramente ao usuário.  
-    3 - **Use diagramas para melhor entendimento para o usuário**, mas escolha o tipo de diagrama com cuidado, considerando as limitações do Mermaid.js.  
-    4 - **Explique termos técnicos** de forma clara e acessível para um usuário leigo. Use exemplos práticos sempre que possível.  
-    5 - **Se precisar alterar algum dado para representá-lo no gráfico**, explique claramente ao usuário o que foi alterado e por quê. Por exemplo, se os valores excederem 100% e precisarem ser normalizados, explique que isso foi feito para garantir que o gráfico seja legível.  
-    6 - **Formate a explicação textual em HTML**, sem a estrutura completa (sem `<html>`, `<head>`, ou `<body>`). Use `<span>` para destacar termos importantes.  
+    1 - **Use apenas os dados fornecidos no JSON acima.**  
+    2 - **Não invente dados ausentes.** Se algo estiver faltando, avise claramente ao usuário.  
+    3 - **Use diagramas para facilitar o entendimento,** usando o código da biblioteca **Mermaid.js** do JavaScript. 
+          Passe apenas o código puro dos diagramas, sem a necessidade de comentários adicionais. Exemplo: para gerar um gráfico de pizza, 
+          use o formato adequado, lembrando que **não pode exceder o valor total de 100** para pie charts.
+            - Tome cuidado para respeitar a sintaxe, preste bastante atenção nisso.
+    4 - **Explique termos técnicos** de forma simples. Use exemplos práticos sempre que possível.  
+    5 - **Se precisar modificar algum dado para usá-lo no gráfico,** explique ao usuário o que foi alterado e por quê.  
+    6 - **Estruture a resposta em HTML de forma clara** para facilitar a leitura.  
 
-    **Tipos de diagramas disponíveis no Mermaid.js:**
+        - Use **parágrafos `<p>`** para separar informações importantes.  
+        - **Destaque termos importantes com `<span>`**.  
+        - Para títulos ou seções importantes, use **`<h1>`, `<h2>`, etc.** conforme necessário.  
+        - Use listas, tabelas, etc., para organizar as informações.
 
-    - **Gráficos de Pizza (Pie Chart):**  
-      Use para representar a distribuição percentual de recursos, como CPU, memória e disco.  
-      **Limitação:** Os valores devem estar entre 0 e 100. Se os dados excederem 100, normalize-os para que o maior valor seja 100 e os demais sejam ajustados proporcionalmente.  
-      **Explicação ao usuário:** Se precisar normalizar os dados, explique:  
-      ```html
-      <p>Os valores foram ajustados para caber no gráfico de pizza, mantendo as proporções relativas entre eles. Por exemplo, se o uso da <span>CPU</span> fosse 150%, ele foi normalizado para 100%, e os demais valores foram ajustados proporcionalmente.</p>
-      ```  
-      Exemplo:
-      ```mermaid
-      pie
-        title Distribuição de Uso de Recursos
-        "CPU" : 30
-        "Memória" : 50
-        "Disco" : 20
-      ```
+    **Exemplo de saída esperada:**
 
-    - **Mapas Mentais (Mind Maps):**  
-      Use para representar a estrutura dos recursos de hardware, como CPU, memória e disco.  
-      **Ideal para:** Mostrar relações hierárquicas ou categorias de recursos.  
-      Exemplo:
-      ```mermaid
-      mindmap
-        root
-          "Recursos do Sistema"
-            "CPU"
-              "Núcleos: 4"
-              "Uso: 30%"
-            "Memória"
-              "Total: 16 GB"
-              "Uso: 50%"
-            "Disco"
-              "Total: 1 TB"
-              "Uso: 500 GB"
-      ```
-
-    - **Diagramas de Fluxo (Flowchart):**  
-      Use para ilustrar o processo de uso de recursos no sistema.  
-      **Ideal para:** Mostrar fluxos de trabalho, processos ou decisões.  
-      Exemplo:
-      ```mermaid
-      graph TD
-        A[Início] --> B{{Verificar CPU}}
-        B -->|Ok| C[Verificar Memória]
-        B -->|Problema| D[Alertar Usuário]
-        C --> E{{Verificar Disco}}
-        E -->|Ok| F[Finalizar]
-        E -->|Problema| D
-      ```
-
-    - **Diagramas de Gantt:**  
-      Use para mostrar o cronograma de uso de recursos no tempo, por exemplo, atividades relacionadas ao uso de CPU ou memória.  
-      **Ideal para:** Mostrar tarefas ao longo do tempo.  
-      Exemplo:
-      ```mermaid
-      gantt
-        title Uso de Recursos no Sistema
-        dateFormat  YYYY-MM-DD
-        section CPU
-        Processamento :done, 2025-02-01, 10d
-        section Memória
-        Carregamento :active, 2025-02-11, 12d
-        section Disco
-        Leitura de Arquivo :2025-02-20, 8d
-      ```
-
-    **Escolha do Diagrama:**  
-    - **Gráfico de Pizza:** Use para mostrar proporções ou distribuições percentuais.  
-    - **Mapa Mental:** Use para organizar informações hierárquicas ou categorizadas.  
-    - **Diagrama de Fluxo:** Use para ilustrar processos ou decisões.  
-    - **Diagrama de Gantt:** Use para mostrar tarefas ou atividades ao longo do tempo.  
-
-    **Exemplo de saída completa que deve ser fornecida:**  
-    ```json
+    <pre>
     {{
       "question": "Pergunta feita pelo usuário",
-      "response": "<p>A <span>CPU</span> está operando normalmente, com <span>30% de uso</span>. Isso significa que, dos recursos disponíveis, apenas <span>30%</span> estão sendo utilizados no momento, o que é considerado saudável. Para representar esses dados no gráfico de pizza, os valores foram normalizados para caber no formato de <span>0 a 100%</span>, mantendo as proporções relativas.</p>",
-      "visual": "pie\n  title Uso de Recursos\n  \"CPU\" : 30\n  \"Memória\" : 50\n  \"Disco\" : 20"
+      "response": "Resposta em linguagem natural, separando HTML para conteúdo explicativo.",
+      "visual": [
+        "O diagrama Mermaid gerado (somente o código gerado pelo Mermaid)",
+        "Outros diagramas gerados, se houver"
+      ]
     }}
-    ```
+    </pre>
 
-    **Caso algum dado importante não esteja presente:**  
-    Se o usuário perguntar sobre um componente **não incluído** no JSON acima, responda:  
+    **Caso faltem dados importantes:**  
+    Se o usuário perguntar sobre um componente **não incluído** no JSON, responda:
 
-    ```html
     <p>Desculpe, não tenho informações sobre <span>componente</span> no momento. Tente consultar outro serviço.</p>
-    ```
 
-    **Comunicação com o Usuário Leigo:**  
-    - Evite termos técnicos sem explicação. Por exemplo, em vez de dizer "CPU está com 30% de utilização", diga:  
-      ```html
-      <p>O <span>processador (CPU)</span> está usando <span>30% de sua capacidade</span>, o que significa que ainda há bastante espaço para executar mais tarefas.</p>
-      ```  
-    - Use analogias simples. Por exemplo:  
-      ```html
-      <p>Pense na <span>memória do computador</span> como uma mesa de trabalho. Quanto mais programas abertos, mais cheia fica a mesa, e o computador pode ficar mais lento.</p>
-      ```  
-    - Explique siglas e conceitos. Por exemplo:  
-      ```html
-      <p>A <span>CPU (Unidade Central de Processamento)</span> é como o cérebro do computador, responsável por realizar cálculos e executar tarefas.</p>
-      ```  
+    FORMATE A SAÍDA CONFORME O JSON, separando cada informação pela CHAVE
 
-      FAÇA A SAIDA DA PROMPT, EXATAMENTE NO FORMATO DO EXEMPLO
     '''
+
+
+
+

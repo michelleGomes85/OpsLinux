@@ -1,6 +1,6 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const selectElems = document.querySelectorAll('select');
-    M.FormSelect.init(selectElems);
+document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.modal');
+    var instances = M.Modal.init(elems);
 });
 
 var tooltips = document.querySelectorAll('.tooltipped');

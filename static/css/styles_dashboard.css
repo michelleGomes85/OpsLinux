@@ -241,9 +241,13 @@
     padding-bottom: 100px;  
 }
 
-#response-container {
-    height: 100vh;
-    margin-left: 80px;
+@media (max-width: 1500px) {
+
+    #cpu-usage-chart, #disk-usage-chart, #memory-usage-chart {
+        flex-direction: column;
+        align-items: center;
+    }
+    
 }
 
 @media (max-width: 1000px) {
@@ -274,5 +278,9 @@
     .ip-time {
         flex-direction: column;
         align-items: center;
+    }
+
+    #response-container {
+        margin-left: 0;
     }
 }

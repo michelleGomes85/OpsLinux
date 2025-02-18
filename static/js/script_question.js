@@ -46,10 +46,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 const data = await response.json();
     
                 loadingEffect.style.display = 'none';
-    
-                alert("Pergunta enviada com sucesso: " + question);
-
-                displayResponse(data)
+                
+                var closeButton = document.getElementById('close-modal-btn');
+                closeButton.click(); 
+                
+                displayResponse(data);
             } catch (error) {
                 console.error('Erro:', error);
             }

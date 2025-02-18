@@ -1,0 +1,213 @@
+:root {
+    --primary-color: #4a9eff;
+    --header-background: #0a2847;
+    --card-background: #051428;
+    --text-color: #ffffff;
+    --shadow-color: rgba(0, 0, 0, 0.3);
+    --transparent: var(--transparent)
+}
+
+#response-container {   
+    display: none;
+    margin-left: 80px;
+    align-items: center;
+    justify-content: center;
+    padding: 50px;
+    flex-direction: column;
+}
+  
+.card {
+    background-color: var(--card-background);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px var(--shadow-color);
+    overflow: hidden;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    border: 1px solid rgb(85, 105, 127);
+    max-width: 1500px;
+    padding: 50px;
+}
+
+.card:hover {
+    box-shadow: 0 10px 15px var(--shadow-color);
+    transform: translateY(-5px);
+}
+
+.card-header {
+    background-color: var(--transparent);
+    padding: 0px 0 30px;
+    width: 100%;
+    border-bottom: 1px solid rgb(85, 105, 127);
+}
+
+.card-title {
+    color: var(--text-color);
+    font-size: 1.3rem !important;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-title i {
+    margin-right: 0.9rem;
+}
+
+.card-content .answer p,
+h1,
+h2,
+h3,
+h4,
+h5 {
+    color: var(--text-color) !important;
+    line-height: 1.9;
+    margin: 0;
+    font-size: 1.2rem !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+    font-weight: bold;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+table {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+td, th {
+    color: #fff;
+    border: 1px solid #fff;
+}
+
+table {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.card-content div p span {
+    color: var(--primary-color);
+}
+
+.card .card-content {
+    padding: 50px;
+}
+
+.card .card-content div ul li {
+    list-style-type: circle !important;
+    color: #fff !important;
+    margin-left: 2rem !important;
+    font-size: 1.2rem;
+}
+
+#mermaid-container {
+    background-color: var(--card-background);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.mermaid svg {
+    width: 100%;
+    max-width: 90vh;
+    height: 80vh;
+    min-height: 50vh;
+    max-width: none;
+  }
+  
+
+#mermaid-container [id^="mermaid-"] legend text {
+    color: #fff;
+    fill: #fff !important;
+}
+
+svg .mermaid rect {
+    fill: rgb(17, 46, 81) !important;
+    stroke: rgb(46, 113, 191) !important;
+    stroke-width: 2px;
+}
+
+code {
+    color: rgb(46, 113, 191) !important;
+}
+
+  
+.mermaid text {
+    fill: #ffffff !important;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+}
+
+
+.mermaid .edgePath path {
+    stroke: rgb(46, 113, 191) !important;
+    stroke-width: 2px;
+}
+
+.mermaid .edgeLabel {
+    background-color: rgb(17, 46, 81) !important;
+    padding: 2px;
+    border-radius: 4px;
+}
+
+.mermaid .cluster rect {
+    fill: rgb(17, 46, 81) !important;
+    stroke: rgb(46, 113, 191) !important;
+    stroke-width: 2px;
+}
+
+/* Forçar a cor do texto */
+.mermaid {
+    color: white !important;
+}
+
+/* Forçar a cor do texto dentro dos nós */
+.mermaid svg .node text {
+    fill: white !important;
+}
+
+/* Forçar a cor das bordas dos nós */
+.mermaid svg .node rect,
+.mermaid svg .node circle,
+.mermaid svg .node ellipse {
+    stroke: white !important;
+}
+
+/* Forçar a cor das bordas dos clusters */
+.mermaid svg .cluster rect {
+    stroke: white !important;
+}
+
+/* Forçar a cor das arestas (linhas de conexão) */
+.mermaid svg .edgePath path {
+    stroke: white !important;
+}
+
+/* Forçar a cor do texto nas legendas das conexões */
+.mermaid svg .edgeLabel text {
+    fill: white !important;
+}
+
+/* Forçar a cor do fundo das legendas */
+.mermaid svg .label text {
+    fill: white !important;
+}
+
+@media (max-width: 480px) {
+    .card {
+        margin: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+
+    #response-container {
+        margin-left: 0;
+    }
+}
+
