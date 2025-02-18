@@ -12,9 +12,7 @@ function displayResponse(data) {
         }
     });
     
-
     const responseContainer = document.getElementById('response-container');
-    const card = document.querySelector('.card');
     const questionElement = document.querySelector(".question-card");
     const responseElement = document.querySelector(".answer");
     const mermaidContainer = document.getElementById('mermaid-container');
@@ -60,15 +58,35 @@ function displayResponse(data) {
             mermaidContainer.innerHTML = '';
 
             responseData.visual.forEach((diagram) => {
-                const sanitizedDiagram = diagram.replace(/```mermaid/g, '').replace(/```/g, '').trim();
+                const fixDiagram = diagram.replace(/```mermaid/g, '').replace(/```/g, '').trim();
 
                 try {
 
                     // Verifica se o diagrama é válido
-                    if (mermaid.parse(sanitizedDiagram)) {
+                    if (mermaid.parse(fixDiagram)) {
+                        const diagramWrapper = document.createElement('div');
+                        diagramWrapper.classList.add('diagram-wrapper');
+
+                        const toggleButton = document.createElement('button');
+                        toggleButton.textContent = 'Ocultar Diagrama';
+                        toggleButton.addEventListener('click', () => {
+                            const diagramElement = diagramWrapper.querySelector('.mermaid');
+                            if (diagramElement.style.display === 'none') {
+                                diagramElement.style.display = 'block';
+                                toggleButton.textContent = 'Ocultar Diagrama';
+                            } else {
+                                diagramElement.style.display = 'none';
+                                toggleButton.textContent = 'Mostrar Diagrama';
+                            }
+                        });
+
                         const diagramElement = document.createElement('div');
-                        diagramElement.textContent = sanitizedDiagram;
-                        mermaidContainer.appendChild(diagramElement);
+                        diagramElement.classList.add('mermaid');
+                        diagramElement.textContent = fixDiagram;
+
+                        diagramWrapper.appendChild(toggleButton);
+                        diagramWrapper.appendChild(diagramElement);
+                        mermaidContainer.appendChild(diagramWrapper);
 
                         // Captura erros durante a renderização
                         mermaid.init(undefined, diagramElement).catch((err) => {

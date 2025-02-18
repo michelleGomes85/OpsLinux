@@ -62,27 +62,33 @@ Retorna informações detalhadas sobre o processador do sistema, incluindo:
 Pode ser utilizado para monitorar o desempenho da CPU, identificar problemas de sobrecarga e verificar temperaturas dos núcleos do processador.
 """
 
+import psutil
+from flask import Blueprint, jsonify
+
+cpu_bp = Blueprint('cpu', __name__)
+
 @cpu_bp.route('/', methods=['GET'])
 def get_cpu_info():
     cpu_count = psutil.cpu_count(logical=True)
     cpu_physical_count = psutil.cpu_count(logical=False)
-    
-    # Inicializa a medição para precisão
-    psutil.cpu_percent(interval=0.1)
-    
-    # Coleta dados de uso da CPU
-    cpu_usage_per_core = psutil.cpu_percent(interval=0.1, percpu=True)
-    cpu_usage_total = psutil.cpu_percent(interval=0.1)
-    
+
+    # Loop para garantir que pelo menos um núcleo tenha uso maior que 0
+    while True:
+        cpu_usage_per_core = psutil.cpu_percent(interval=0.1, percpu=True)
+        cpu_usage_total = psutil.cpu_percent(interval=0.1)
+
+        if any(core > 0 for core in cpu_usage_per_core) or cpu_usage_total > 0:
+            break
+
     # Frequência da CPU
     cpu_frequency = psutil.cpu_freq()
-    
+
     # Tempos de execução da CPU
     cpu_times = psutil.cpu_times()
     cpu_times_percent = psutil.cpu_times_percent(interval=0.1)
-    
+
     # Informações gerais da CPU (se disponível)
-    cpu_info = {}  
+    cpu_info = {}
     if hasattr(psutil, "cpu_info"):
         cpu_data = psutil.cpu_info()
         cpu_info = {
@@ -92,7 +98,7 @@ def get_cpu_info():
             "cores": getattr(cpu_data, 'cores', 'N/A'),
             "threads": getattr(cpu_data, 'threads', 'N/A')
         }
-    
+
     # Temperaturas da CPU (se suportado pelo hardware)
     cpu_temperatures = []
     if hasattr(psutil, "sensors_temperatures"):
@@ -102,12 +108,12 @@ def get_cpu_info():
                 {"label": temp.label, "current": temp.current, "high": temp.high, "critical": temp.critical}
                 for temp in sensors_data['coretemp']
             ]
-    
+
     # Carga média do sistema (se disponível)
     load_avg = None
     if hasattr(psutil, "getloadavg"):
         load_avg = psutil.getloadavg()
-    
+
     return jsonify({
         "cpu_count": cpu_count,
         "cpu_physical_count": cpu_physical_count,
