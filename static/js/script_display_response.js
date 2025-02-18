@@ -92,20 +92,23 @@ function displayResponse(data) {
                         mermaid.init(undefined, diagramElement).catch((err) => {
                             mermaidContainer.innerHTML = '';
                             const errorMessage = document.createElement('div');
-                            errorMessage.textContent = "Me desculpe não conseguimos reenderizar uma resposta visual para você";
+                            errorMessage.classList.add('error-message'); 
+                            errorMessage.textContent = "Me desculpe não conseguimos reenderizar uma resposta visual para você 😞";
                             mermaidContainer.appendChild(errorMessage);
                         });
 
                     } else {
                         mermaidContainer.innerHTML = '';
                         const errorMessage = document.createElement('div');
-                        errorMessage.textContent = "Me desculpe não conseguimos reenderizar uma resposta visual para você";
+                        errorMessage.classList.add('error-message'); 
+                        errorMessage.textContent = "Me desculpe não conseguimos reenderizar uma resposta visual para você 😞";
                         mermaidContainer.appendChild(errorMessage);
                     }
                 } catch (err) {
                     mermaidContainer.innerHTML = '';
                     const errorMessage = document.createElement('div');
-                    errorMessage.textContent = "Me desculpe não conseguimos reenderizar uma resposta visual para você"
+                    errorMessage.classList.add('error-message'); 
+                    errorMessage.textContent = "Me desculpe não conseguimos reenderizar uma resposta visual para você 😞"
                     mermaidContainer.appendChild(errorMessage);
                 }
             });

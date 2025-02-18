@@ -6,12 +6,12 @@ documentation_bp = Blueprint('documentation', __name__)
 
 PROJECT_INFO = {
     "name": "OpsLinux",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "authors": [
         {"name": "Gabriel Barbosa", "github": "https://github.com/GabrielBarbosaAfo"},
         {"name": "Michelle Gomes", "github": "https://github.com/michelleGomes85"}
     ],
-    "last_modified": datetime.now().strftime("%d/%m/%Y"),
+    "last_modified": "18/02/2025",
     "gitrepo": "https://github.com/michelleGomes85/OpsLinux",
 }
 

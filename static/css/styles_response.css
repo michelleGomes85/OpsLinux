@@ -82,6 +82,7 @@ table {
 td, th {
     color: #fff;
     border: 1px solid #fff;
+    padding: 20px;
 }
 
 table {
@@ -215,6 +216,10 @@ code {
 .diagram-wrapper button:hover {
     background-color: #A3D5FF!important;
     color: #000;
+}
+
+.error-message {
+    font-weight: bold;
 }
 
 @media (max-width: 480px) {
