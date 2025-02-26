@@ -83,7 +83,3 @@ O **SysBot** recebe os dados da API e os apresenta de forma clara e compreensív
 
 [![MichelleGomes](https://img.shields.io/badge/Desenvolvedor-MichelleGomes-darkblue)](https://github.com/michelleGomes85)  
 [![Gabriel Barbosa](https://img.shields.io/badge/Desenvolvedor-Gabriel%20Barbosa-darkblue)](https://github.com/GabrielBarbosaAfo)
-
----
-
-🌐 Projeto open-source desenvolvido para facilitar o monitoramento de sistemas Linux de forma simples e intuitiva. Contribuições são bem-vindas! 🛠️
