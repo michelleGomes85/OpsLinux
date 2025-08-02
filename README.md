@@ -55,8 +55,8 @@ O **SysBot** recebe os dados da API e os apresenta de forma clara e compreensív
 1. Clone o repositório:
 
    ```bash
-   git clone https://github.com/seu-usuario/sistema-monitoramento.git
-   cd sistema-monitoramento
+   git clone https://github.com/seu-usuario/OpsLinux.git
+   cd OpsLinux
    ```
 
 2. Instale as dependências:
@@ -83,3 +83,4 @@ O **SysBot** recebe os dados da API e os apresenta de forma clara e compreensív
 
 [![MichelleGomes](https://img.shields.io/badge/Desenvolvedor-MichelleGomes-darkblue)](https://github.com/michelleGomes85)  
 [![Gabriel Barbosa](https://img.shields.io/badge/Desenvolvedor-Gabriel%20Barbosa-darkblue)](https://github.com/GabrielBarbosaAfo)
+
