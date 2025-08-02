@@ -79,8 +79,9 @@ O **SysBot** recebe os dados da API e os apresenta de forma clara e compreensív
 
 ---
 
-## 👨‍👩‍👦 Desenvolvedores
+## Desenvolvedores
 
 [![MichelleGomes](https://img.shields.io/badge/Desenvolvedor-MichelleGomes-darkblue)](https://github.com/michelleGomes85)  
 [![Gabriel Barbosa](https://img.shields.io/badge/Desenvolvedor-Gabriel%20Barbosa-darkblue)](https://github.com/GabrielBarbosaAfo)
+
 
