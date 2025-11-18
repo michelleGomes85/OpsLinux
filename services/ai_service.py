@@ -13,7 +13,7 @@ def configure_model():
 
     genai.configure(api_key=GOOGLE_API_KEY)
     
-    return genai.GenerativeModel(model_name="gemini-1.5-flash")
+    return genai.GenerativeModel(model_name="gemini-2.0-flash")
 
 def ask_ai(prompt):
 
@@ -24,4 +24,5 @@ def ask_ai(prompt):
                     generation_config=genai.GenerationConfig(response_mime_type='application/json')
                 )
     
+
     return response.candidates[0].content.parts[0].text
