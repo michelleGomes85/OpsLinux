@@ -1,87 +1,167 @@
-# OpsLinux - Monitoramento de Recursos Linux
+# 🖥️ OpsLinux – Monitoramento Inteligente de Recursos Linux
 
-OpsLinux é um sistema de monitoramento de recursos de um sistema Linux, desenvolvido em Python utilizando o framework Flask. Ele fornece uma API RESTful que permite monitorar diversos aspectos do sistema, como uso de CPU, memória, disco, rede, processos em execução e tempo de atividade (uptime).
+OpsLinux é um sistema completo para monitoramento de recursos Linux, desenvolvido em **Python + Flask**, com integração de **IA Gemini (Google)**.  
+Ele expõe uma API REST para obter informações detalhadas sobre **CPU, memória, discos, rede, processos e uptime**, além de utilizar dois agentes inteligentes para interpretar perguntas e gerar respostas claras e visuais.
 
 ![OpsLinux](https://github.com/user-attachments/assets/6d1f35ac-d8d8-4824-9139-c28f145ac2ff)
 
 ---
 
-## 🌟 Funcionalidades
+## 📚 Sumário
 
-OpsLinux oferece os seguintes endpoints para monitoramento:
-
-- **CPU**: Informações detalhadas sobre o processador, incluindo uso por núcleo, frequência, tempos de execução e temperatura.
-- **Disco**: Informções sobre o espaço em disco, incluindo partições, espaço total, utilizado e livre, além de estatísticas de I/O.
-- **Memória**: Monitoramento da memória RAM e swap, exibindo total, usado, livre e porcentagem de uso.
-- **Rede**: Exibe dados das interfaces de rede, incluindo endereços IP, estatísticas de tráfego e status da interface.
-- **Processos**: Lista de processos em execução, com detalhes como PID, nome, usuário, uso de CPU e memória, e tempo de execução.
-- **Uptime**: Tempo de atividade do sistema desde o último boot.
-- **System Info**: Informações consolidadas do sistema, incluindo endereço IP, tempo de atividade, uso de memória, disco e CPU.
-
----
-
-## 🧐 Como Funciona
-
-O projeto utiliza dois agentes de IA para melhorar a interação com o sistema de monitoramento:
-
-### 🔧 Agente docBot
-
-O **docBot** interpreta perguntas em linguagem natural e determina qual endpoint da API deve ser chamado. Ele analisa a consulta do usuário e busca as informações relevantes.
-
-### 💻 Agente SysBot
-
-O **SysBot** recebe os dados da API e os apresenta de forma clara e compreensível, utilizando linguagem natural. Além disso, ele gera diagramas visuais com Mermaid.js para facilitar a compreensão.
+- [✨ Funcionalidades](#-funcionalidades)
+- [🤖 Agentes de IA](#-agentes-de-ia)
+- [📌 Pré-requisitos](#-pré-requisitos)
+- [🔑 Como gerar a API Key do Gemini](#-como-gerar-a-api-key-do-gemini)
+- [🔐 Criando o arquivo env](#-criando-o-arquivo-env)
+- [🛠️ Instalação](#️-instalação)
+- [▶️ Executando o servidor](#️-executando-o-servidor)
+- [📈 Exemplo de interação](#-exemplo-de-interação)
+- [👥 Desenvolvedores](#-desenvolvedores)
 
 ---
 
-## 📈 Exemplo de Interação
+## ✨ Funcionalidades
 
-- **Usuário**: "Qual é o uso da CPU?"
-- **docBot**: Identifica a consulta e chama o endpoint correspondente.
-- **SysBot**: Traduz os dados da API para algo como: "O núcleo 1 está usando 45% da capacidade, o núcleo 2 está com 30% de uso, e o núcleo 3 está com 60%." Também gera um gráfico visual do uso de cada núcleo utilizando Mermaid.js.
+OpsLinux fornece múltiplos endpoints para monitoramento do sistema:
+
+### 🔥 CPU
+- Uso por núcleo  
+- Frequência  
+- Tempos de execução  
+- Temperatura  
+
+### 💾 Memória
+- RAM total, usada e livre  
+- Swap  
+- Porcentagem de uso  
+
+### 📀 Disco
+- Partições  
+- Espaço total / usado / livre  
+- Estatísticas de I/O  
+
+### 🌐 Rede
+- Interfaces disponíveis  
+- Endereços IP  
+- Tráfego enviado e recebido  
+- Status da interface  
+
+### 📋 Processos
+- PID  
+- Nome  
+- Usuário  
+- Uso de CPU e memória  
+- Tempo de execução  
+
+### ⏱️ Uptime
+- Tempo total desde o último boot  
+
+### 🧩 System Info
+- Uptime  
+- CPU  
+- Memória  
+- Disco  
+- Endereço IP  
 
 ---
 
-## 💪 Como Usar
+## 🤖 Agentes de IA
 
-### 🔧 Pré-requisitos
+### 🔧 **docBot**
+Interpreta perguntas em linguagem natural e identifica automaticamente qual endpoint da API consultar.
 
-- Python 3.x
-- Flask
-- psutil
-
-### 🛠️ Instalação
-
-1. Clone o repositório:
-
-   ```bash
-   git clone https://github.com/seu-usuario/OpsLinux.git
-   cd OpsLinux
-   ```
-
-2. Instale as dependências:
-
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-3. Execute o servidor Flask:
-
-   ```bash
-   python app.py
-   ```
-
-4. Acesse a API no navegador:
-
-   ```
-   http://localhost:5002/
-   ```
+### 💻 **SysBot**
+Recebe os dados do endpoint solicitado e os transforma em uma explicação clara, resumida e amigável.  
+Também gera diagramas em **Mermaid.js** para visualização.
 
 ---
 
-## Desenvolvedores
+## 📌 Pré-requisitos
+
+- Python 3.x  
+- Flask  
+- psutil  
+- **Conta Google e chave da API Gemini**
+
+---
+
+## 🔑 Como gerar a API Key do Gemini
+
+1. Acesse:  
+   👉 https://aistudio.google.com/
+
+2. Faça login com sua conta Google.
+
+3. No menu lateral, clique em **"API Keys"**.
+
+4. Clique em **"Create API Key"**.
+
+5. Copie a chave gerada — ela será usada no `.env`.
+
+---
+
+## 🔐 Criando o arquivo `.env`
+
+Na raiz do projeto, crie um arquivo chamado **`.env`**:
+
+```bash
+GOOGLE_API_KEY=SUA_CHAVE_AQUI
+```
+
+
+Sem esse arquivo, a integração com IA **não funciona**.
+
+---
+
+## 🛠️ Instalação
+
+```bash
+git clone https://github.com/michelleGomes85/OpsLinux.git
+cd OpsLinux
+pip install -r requirements.txt
+```
+
+## ▶️ Executando o servidor
+
+```bash
+python app.py
+```
+
+Acesse no navegador ou em clientes HTTP:
+
+```bash
+http://localhost:5002/
+```
+
+## 📈 Exemplo de interação
+
+Usuário:
+
+> Como está o uso da CPU agora?
+
+docBot:
+
+Identifica que precisa consultar o endpoint `/cpu`.
+
+SysBot:
+
+Retorna a interpretação:
+
+> “Núcleo 1: 45%, Núcleo 2: 30%, Núcleo 3: 60%...”
+
+E pode retornar algo como:
+
+```mermaid
+pie showData
+    title Uso de CPU por Núcleo
+    "Núcleo 1" : 45
+    "Núcleo 2" : 30
+    "Núcleo 3" : 60
+```
+---
+
+## 👥 Desenvolvedores
 
 [![MichelleGomes](https://img.shields.io/badge/Desenvolvedor-MichelleGomes-darkblue)](https://github.com/michelleGomes85)  
 [![Gabriel Barbosa](https://img.shields.io/badge/Desenvolvedor-Gabriel%20Barbosa-darkblue)](https://github.com/GabrielBarbosaAfo)
-
-
